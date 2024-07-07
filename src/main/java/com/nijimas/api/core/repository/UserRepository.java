@@ -1,4 +1,6 @@
-package com.nijimas.api.core.user;
+package com.nijimas.api.core.repository;
+
+import com.nijimas.api.core.model.User;
 
 import java.util.Optional;
 

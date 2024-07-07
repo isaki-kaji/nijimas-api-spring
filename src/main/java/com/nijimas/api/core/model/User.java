@@ -1,4 +1,4 @@
-package com.nijimas.api.core.user;
+package com.nijimas.api.core.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

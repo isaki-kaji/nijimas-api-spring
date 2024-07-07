@@ -1,10 +1,8 @@
 package com.nijimas.api.infrastructure.mybatis.mapper;
 
-import com.nijimas.api.core.user.User;
+import com.nijimas.api.core.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.Optional;
 
 @Mapper
 public interface UserMapper {

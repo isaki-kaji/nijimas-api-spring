@@ -1,7 +1,7 @@
 package com.nijimas.api.infrastructure.repository;
 
-import com.nijimas.api.core.user.User;
-import com.nijimas.api.core.user.UserRepository;
+import com.nijimas.api.core.model.User;
+import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
