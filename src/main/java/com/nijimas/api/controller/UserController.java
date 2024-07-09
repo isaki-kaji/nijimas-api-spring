@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
     private UserRepository userRepository;
 
-    @PostMapping(path = "users")
+    @PostMapping(path = "/users")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateParam createParam) {
         User user = userService.createUser(createParam);
         return ResponseEntity.status(HttpStatus.OK).body(user);
