@@ -12,21 +12,26 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.nijimas.api.infrastructure.mybatis.mapper")
 public class MyBatisConfig {
 
+    private final DataSource dataSource;
+
     @Autowired
-    DataSource dataSource;
+    public MyBatisConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory() {
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setConfigLocation(
-                new ClassPathResource("/mybatis-config.xml"));
+                new ClassPathResource("mybatis-config.xml"));
         return  sessionFactoryBean;
     }
 

@@ -18,8 +18,9 @@ public class User {
     private String countryCode;
     private ZonedDateTime createdAt;
 
-    public User(String uid ,String username) {
+    public User(String uid ,String username, String countryCode) {
         this.uid = uid;
         this.username = username;
+        this.countryCode = countryCode;
     }
 }
