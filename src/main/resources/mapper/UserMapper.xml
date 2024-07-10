@@ -6,14 +6,17 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.UserMapper">
 
     <insert id="insert">
-        insert into user (uid, username, country_code)
+        insert into "user" (uid, username, country_code)
         values (
-            #{user.uid},
-            #{user.username},
-            #{user.country_code}
+        #{uid},
+        #{username},
+        #{countryCode}
+        )
     </insert>
-    <select id="findByUid" resultType="User">
-        select * from user
+
+    <select id="findByUid">
+        select * from "user"
         where uid = #{uid}
     </select>
+
 </mapper>

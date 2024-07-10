@@ -4,9 +4,11 @@ import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
@@ -21,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
             userMapper.insert(user);
             return;
         }
-        userMapper.update(user);
+        //userMapper.update(user);
     }
 
     @Override

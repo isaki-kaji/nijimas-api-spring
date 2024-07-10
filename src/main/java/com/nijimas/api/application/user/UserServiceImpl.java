@@ -1,6 +1,7 @@
 package com.nijimas.api.application.user;
 
 import com.nijimas.api.core.exception.service.UserAlreadyExistsException;
+import com.nijimas.api.core.exception.service.UserNotFoundException;
 import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
@@ -29,5 +30,13 @@ public class UserServiceImpl implements UserService {
         User user = new User(createParam.getUid(), createParam.getUsername(), createParam.getCountryCode());
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public User findByUid(String uid) {
+        return userRepository.findByUid(uid)
+                .orElseThrow(() -> {
+                    return new UserNotFoundException("User not found with uid: " + uid);
+                });
     }
 }

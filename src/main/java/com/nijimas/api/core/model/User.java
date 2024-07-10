@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 @Getter
@@ -16,7 +17,7 @@ public class User {
     private String profileImageUrl;
     private String bannerImageUrl;
     private String countryCode;
-    private ZonedDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     public User(String uid ,String username, String countryCode) {
         this.uid = uid;
