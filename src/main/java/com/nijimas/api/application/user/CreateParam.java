@@ -1,12 +1,12 @@
 package com.nijimas.api.application.user;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Getter
 @AllArgsConstructor
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class CreateParam {
 
     @NotBlank(message = "can't be empty")
-    @Pattern(regexp = "[a-zA-Z0-9]+$", message = "must contain only alphanumeric characters")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "must contain only alphanumeric characters")
     private String uid;
 
     @NotBlank(message = "can't be empty")

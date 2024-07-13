@@ -6,12 +6,13 @@ import com.nijimas.api.exception.UserNotFoundException;
 import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 
 @RestController
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@Valid @RequestBody CreateParam createParam) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid CreateParam createParam) {
         User user = userService.createUser(createParam);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
