@@ -6,7 +6,6 @@ import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
