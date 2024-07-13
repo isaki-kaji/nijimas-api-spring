@@ -1,10 +1,11 @@
 package com.nijimas.api.application.user;
 
-import com.nijimas.api.core.exception.service.UserAlreadyExistsException;
-import com.nijimas.api.core.exception.service.UserNotFoundException;
+import com.nijimas.api.exception.UserAlreadyExistsException;
+import com.nijimas.api.exception.UserNotFoundException;
 import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
+import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(@Valid CreateParam createParam) {
         userRepository.findByUid(createParam.getUid()).ifPresent(user -> {
-            throw new UserAlreadyExistsException();
+            throw new UserAlreadyExistsException(user.getUid());
         });
         User user = new User(createParam.getUid(), createParam.getUsername(), createParam.getCountryCode());
         userRepository.save(user);
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public User findByUid(String uid) {
         return userRepository.findByUid(uid)
                 .orElseThrow(() -> {
-                    return new UserNotFoundException("User not found with uid: " + uid);
+                    return new UserNotFoundException(uid);
                 });
     }
 }
