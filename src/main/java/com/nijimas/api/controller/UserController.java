@@ -1,9 +1,10 @@
 package com.nijimas.api.controller;
 
 import com.nijimas.api.application.user.CreateParam;
-import com.nijimas.api.exception.ApiErrorResponse;
-import com.nijimas.api.exception.UserAlreadyExistsException;
-import com.nijimas.api.exception.UserNotFoundException;
+import com.nijimas.api.application.user.UpdateParam;
+import com.nijimas.api.core.exception.ApiErrorResponse;
+import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
+import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.model.User;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
@@ -25,20 +26,30 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateParam createParam) {
         try {
             User user = userService.createUser(createParam);
-            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+            return ResponseEntity.ok().body(user);
         } catch (UserAlreadyExistsException e) {
-            return new ResponseEntity<>(new ApiErrorResponse(e.getMessage()), HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new ApiErrorResponse(e));
         }
 
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateUser(
+            @RequestBody @Valid UpdateParam updateParam,
+            @RequestAttribute("ownUid") String ownUid) {
+        userService.updateUser(updateParam, ownUid);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(path = "/{uid}")
     public ResponseEntity<?> getUserByUid(@PathVariable String uid) {
         try {
             User user = userService.findByUid(uid);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return ResponseEntity.ok().body(user);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new ApiErrorResponse(e), HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiErrorResponse(e));
         }
     }
 }

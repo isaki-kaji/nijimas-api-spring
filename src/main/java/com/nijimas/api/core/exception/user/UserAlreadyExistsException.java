@@ -1,4 +1,4 @@
-package com.nijimas.api.exception;
+package com.nijimas.api.core.exception.user;
 
 public class UserAlreadyExistsException extends RuntimeException{
 

@@ -1,4 +1,4 @@
-package com.nijimas.api.exception;
+package com.nijimas.api.core.exception;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

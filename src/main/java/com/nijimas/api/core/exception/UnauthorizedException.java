@@ -1,4 +1,4 @@
-package com.nijimas.api.exception;
+package com.nijimas.api.core.exception;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {

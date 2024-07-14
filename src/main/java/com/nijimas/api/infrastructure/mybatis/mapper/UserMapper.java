@@ -9,7 +9,7 @@ public interface UserMapper {
 
     void insert(User user);
 
-    User findByUid(@Param("uid") String uid);
+    User findByUid(String uid);
 
-    //void update(@Param("user") User user);
+    void update(User user);
 }

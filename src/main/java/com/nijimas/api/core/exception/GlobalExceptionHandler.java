@@ -1,6 +1,5 @@
-package com.nijimas.api.exception;
+package com.nijimas.api.core.exception;
 
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,8 +15,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException e) {
-        final ApiErrorResponse errorResponse = new ApiErrorResponse(e.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        final ApiErrorResponse errorResponse = new ApiErrorResponse(e);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,7 +27,13 @@ public class GlobalExceptionHandler {
                 .map(this::createValidationErrorMessage)
                 .collect(Collectors.joining(" , "));
         final ApiErrorResponse errorResponse = new ApiErrorResponse(message);
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Object> handleForbiddenException(ForbiddenException e) {
+        final ApiErrorResponse errorResponse = new ApiErrorResponse(e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
 //    @ExceptionHandler(Exception.class)

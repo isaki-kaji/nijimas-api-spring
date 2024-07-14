@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
             userMapper.insert(user);
             return;
         }
-        //userMapper.update(user);
+        userMapper.update(user);
     }
 
     @Override

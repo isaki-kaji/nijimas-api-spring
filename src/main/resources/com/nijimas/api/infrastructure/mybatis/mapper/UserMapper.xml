@@ -18,4 +18,13 @@
         select * from "user"
         where uid = #{uid}
     </select>
+
+    <update id="update" parameterType="com.nijimas.api.core.model.User">
+        update "user" set
+        username = coalesce(#{username}, username),
+        country_code = coalesce(#{countryCode}, country_code),
+        self_intro = coalesce(#{selfIntro}, self_intro),
+        profile_image_url = coalesce(#{profileImageUrl}, profile_image_url)
+        where uid = #{uid}
+    </update>
 </mapper>
