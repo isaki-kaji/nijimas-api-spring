@@ -5,9 +5,6 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
@@ -20,7 +17,7 @@ public class FirebaseConfig {
     private String firebaseConfigPath;
 
     @PostConstruct
-    public void initialize() throws Exception {
+    public void initialize() {
         try {
             FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath);
 
