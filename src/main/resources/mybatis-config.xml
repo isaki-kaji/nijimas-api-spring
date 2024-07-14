@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <setting name="jdbcTypeForNull" value="Null"/>
+        <setting name="jdbcTypeForNull" value="NULL"/>
 
         <!-- DBから一度に取得する行数を制御 -->
         <setting name="defaultFetchSize" value="100"/>
-        <setting name="mapUnderScoreToCamelCase" value="true"/>
+         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
         <package name="com.nijimas.api.core.model"/>
