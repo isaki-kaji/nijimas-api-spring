@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostSubcategoryMapper">
+
+    <insert id="insert" parameterType="com.nijimas.api.core.model.PostSubcategory">
+        insert into "post_subcategory" (post_id, subcategory_no, sub_category)
+        values (
+        #{postId},
+        #{subcategoryNo},
+        #{subCategory}
+        )
+    </insert>
+</mapper>
