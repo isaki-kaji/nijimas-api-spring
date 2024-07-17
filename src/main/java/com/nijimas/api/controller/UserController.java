@@ -5,7 +5,7 @@ import com.nijimas.api.application.user.UpdateParam;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;
-import com.nijimas.api.core.model.User;
+import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
 import jakarta.validation.Valid;
@@ -23,9 +23,9 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody @Valid CreateParam createParam) {
+    public ResponseEntity<?> registerUser(@RequestBody @Valid CreateParam createParam) {
         try {
-            User user = userService.createUser(createParam);
+            UserEntity user = userService.createUser(createParam);
             return ResponseEntity.ok().body(user);
         } catch (UserAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping(path = "/{uid}")
     public ResponseEntity<?> getUserByUid(@PathVariable String uid) {
         try {
-            User user = userService.findByUid(uid);
+            UserEntity user = userService.findByUid(uid);
             return ResponseEntity.ok().body(user);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

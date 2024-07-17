@@ -1,12 +1,12 @@
 package com.nijimas.api.core.repository;
 
-import com.nijimas.api.core.model.User;
+import com.nijimas.api.core.entity.UserEntity;
 
 import java.util.Optional;
 
 public interface UserRepository {
 
-    void save(User user);
+    void save(UserEntity user);
 
-    Optional<User> findByUid(String uid);
+    Optional<UserEntity> findByUid(String uid);
 }
