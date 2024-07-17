@@ -1,7 +1,6 @@
 package com.nijimas.api.infrastructure.repository;
 
-import com.nijimas.api.core.model.SubCategory;
-import com.nijimas.api.core.model.User;
+import com.nijimas.api.core.entity.SubCategoryEntity;
 import com.nijimas.api.core.repository.SubCategoryRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.SubCategoryMapper;
 
@@ -21,7 +20,7 @@ public class SubCategoryRepositoryImpl implements SubCategoryRepository {
     }
 
     @Override
-    public Optional<SubCategory> findById(String categoryName) {
+    public Optional<SubCategoryEntity> findById(String categoryName) {
         return Optional.ofNullable(subCategoryMapper.findById(categoryName));
 
     }

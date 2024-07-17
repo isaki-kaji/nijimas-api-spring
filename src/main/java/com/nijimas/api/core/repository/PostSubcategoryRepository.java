@@ -1,8 +1,8 @@
 package com.nijimas.api.core.repository;
 
-import com.nijimas.api.core.model.PostSubcategory;
+import com.nijimas.api.core.entity.PostSubcategoryEntity;
 
 public interface PostSubcategoryRepository {
 
-    void save(PostSubcategory postSubcategory);
+    void save(PostSubcategoryEntity postSubcategory);
 }
