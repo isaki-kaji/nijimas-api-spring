@@ -1,4 +1,4 @@
-package com.nijimas.api.core.model;
+package com.nijimas.api.core.entity;
 
 import com.nijimas.api.application.post.CreateParam;
 import com.nijimas.api.util.CommonUtil;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class Post {
+public class PostEntity {
 
     private UUID postId;
     private String uid;
@@ -22,7 +22,7 @@ public class Post {
     private String publicTypeNo;
     private OffsetDateTime createdAt;
 
-    public Post(CreateParam param) {
+    public PostEntity(CreateParam param) {
         this.postId = CommonUtil.parseUuid(param.getPostId());
         this.uid = param.getUid();
         this.mainCategory = param.getUid();
