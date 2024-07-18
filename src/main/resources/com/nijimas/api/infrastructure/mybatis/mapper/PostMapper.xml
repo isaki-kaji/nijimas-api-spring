@@ -5,7 +5,7 @@
 
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostMapper">
 
-    <insert id="insert" parameterType="com.nijimas.api.core.model.Post">
+    <insert id="insert" parameterType="com.nijimas.api.core.entity.PostEntity">
         insert into "post" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no)
         values (
         #{postId},

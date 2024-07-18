@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
 
-    void post(CreateParam param, String ownUid);
+    void registerPost(CreateParam param, String ownUid);
 
     PostDto findById(String postId);
 

@@ -1,25 +1,24 @@
 package com.nijimas.api.infrastructure.repository;
 
 import com.nijimas.api.core.dto.PostDto;
-import com.nijimas.api.core.model.Post;
+import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.PostMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
+@AllArgsConstructor
 public class PostRepositoryImpl implements PostRepository {
     private final PostMapper postMapper;
 
-    @Autowired
-    public PostRepositoryImpl(PostMapper postMapper) {
-        this.postMapper = postMapper;
-    }
-
     @Override
-    public void save(Post post) {
+    public void save(PostEntity post) {
         postMapper.insert(post);
     }
 

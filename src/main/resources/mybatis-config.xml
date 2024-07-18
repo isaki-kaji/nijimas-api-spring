@@ -11,6 +11,9 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.nijimas.api.core.model"/>
+        <package name="com.nijimas.api.core.entity"/>
     </typeAliases>
+    <typeHandlers>
+        <typeHandler javaType="java.util.UUID" handler="com.nijimas.api.infrastructure.typehandler.UUIDTypeHandler"/>
+    </typeHandlers>
 </configuration>

@@ -1,7 +1,7 @@
 package com.nijimas.api.core.repository;
 
 import com.nijimas.api.core.dto.PostDto;
-import com.nijimas.api.core.model.Post;
+import com.nijimas.api.core.entity.PostEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface PostRepository {
 
-    void save(Post post);
+    void save(PostEntity post);
 
     Optional<PostDto> findById(UUID postId);
 

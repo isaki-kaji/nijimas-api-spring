@@ -7,7 +7,7 @@ import com.nijimas.api.core.entity.UserEntity;
 public interface UserService {
     UserEntity createUser(CreateParam createParam);
 
-    void updateUser(UpdateParam updateParam, String ownUid);
+    void updateUser(UpdateParam updateParam);
 
     UserEntity findByUid(String uid);
 }

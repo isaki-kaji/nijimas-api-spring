@@ -1,7 +1,7 @@
 package com.nijimas.api.infrastructure.mybatis.mapper;
 
 import com.nijimas.api.core.dto.PostDto;
-import com.nijimas.api.core.model.Post;
+import com.nijimas.api.core.entity.PostEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Mapper
 public interface PostMapper {
 
-    void insert(Post post);
+    void insert(PostEntity post);
 
     PostDto findById(UUID postId);
 

@@ -1,5 +1,8 @@
 package com.nijimas.api.core.exception;
 
+import com.nijimas.api.core.exception.common.ForbiddenException;
+import com.nijimas.api.core.exception.common.InvalidUuidFormatException;
+import com.nijimas.api.core.exception.common.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,6 +37,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleForbiddenException(ForbiddenException e) {
         final ApiErrorResponse errorResponse = new ApiErrorResponse(e);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    }
+
+    @ExceptionHandler(InvalidUuidFormatException.class)
+    public ResponseEntity<Object> handleBadRequest(Exception e) {
+        final ApiErrorResponse errorResponse = new ApiErrorResponse(e);
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
 //    @ExceptionHandler(Exception.class)

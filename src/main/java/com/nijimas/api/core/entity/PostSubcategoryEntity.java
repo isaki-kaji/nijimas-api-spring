@@ -13,7 +13,7 @@ public class PostSubcategoryEntity {
     private String subcategoryNo;
     private String subCategory;
 
-    public PostSubcategoryEntity(UUID postId, String subcategoryNo, String subCategory) {
+    public PostSubcategoryEntity(UUID postId,String subCategory, String subcategoryNo) {
         this.postId = postId;
         this.subcategoryNo = subcategoryNo;
         this.subCategory = subCategory;

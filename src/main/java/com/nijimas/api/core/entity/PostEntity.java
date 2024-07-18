@@ -25,7 +25,7 @@ public class PostEntity {
     public PostEntity(CreateParam param) {
         this.postId = CommonUtil.parseUuid(param.getPostId());
         this.uid = param.getUid();
-        this.mainCategory = param.getUid();
+        this.mainCategory = param.getMainCategory();
         this.postText = param.getPostText();
         this.photoUrl = param.getPhotoUrl();
         this.expense = param.getExpense();

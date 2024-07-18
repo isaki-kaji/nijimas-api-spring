@@ -3,19 +3,15 @@ package com.nijimas.api.infrastructure.repository;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
+@AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserRepositoryImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 
     @Override
     public void save(UserEntity user) {
