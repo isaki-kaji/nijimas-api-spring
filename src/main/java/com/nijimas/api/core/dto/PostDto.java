@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
 public class PostDto {
-    private Long postId;
+    private UUID postId;
     private String uid;
     private String username;
     private String profileImageUrl;
@@ -16,9 +18,10 @@ public class PostDto {
     private String subCategory1;
     private String subCategory2;
     private String postText;
-    private String photoUrl;
+    private List<String> photoUrl;
     private Integer expense;
     private String location;
-    private Integer publicTypeNo;
+    private String publicTypeNo;
     private OffsetDateTime createdAt;
+    private Boolean isFavorite;
 }

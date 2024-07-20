@@ -15,5 +15,6 @@
     </typeAliases>
     <typeHandlers>
         <typeHandler javaType="java.util.UUID" handler="com.nijimas.api.infrastructure.typehandler.UUIDTypeHandler"/>
+        <typeHandler javaType="java.util.List" jdbcType="VARCHAR" handler="com.nijimas.api.infrastructure.typehandler.CommaSeparatedStringTypeHandler"/>
     </typeHandlers>
 </configuration>

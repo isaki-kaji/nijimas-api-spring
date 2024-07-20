@@ -30,8 +30,8 @@ public class PostServiceImpl implements PostService {
         PostEntity post = new PostEntity(param);
         postRepository.save(post);
 
-        handleSubCategory(post.getPostId(), param.getSubCategory1(),"1");
-        handleSubCategory(post.getPostId(), param.getSubCategory2(),"2");
+        handleSubCategory(post.getPostId(), param.getSubCategory1(), "1");
+        handleSubCategory(post.getPostId(), param.getSubCategory2(), "2");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> findByUid(String uid) {
-        return null;
+        return postRepository.findByUid(uid);
     }
 
     private void handleSubCategory(UUID postId, String subCategoryName, String subCategoryNo) {
