@@ -5,7 +5,6 @@ import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.PostMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
