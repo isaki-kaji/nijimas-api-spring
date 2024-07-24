@@ -5,10 +5,12 @@ import com.nijimas.api.application.user.UpdateParam;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"uid"})
 public class UserEntity {
@@ -19,6 +21,12 @@ public class UserEntity {
     private String bannerImageUrl;
     private String countryCode;
     private OffsetDateTime createdAt;
+
+    public UserEntity(String uid, String username, String countryCode) {
+        this.uid = uid;
+        this.username = username;
+        this.countryCode = countryCode;
+    }
 
     public UserEntity(CreateParam param) {
         this.uid = param.getUid();
