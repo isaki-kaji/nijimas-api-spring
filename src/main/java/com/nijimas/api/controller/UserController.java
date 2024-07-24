@@ -26,7 +26,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody @Valid CreateParam createParam) {
         try {
-            UserEntity user = userService.createUser(createParam);
+            UserEntity user = userService.registerUser(createParam);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (UserAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)

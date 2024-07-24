@@ -30,7 +30,7 @@ class UserServiceImplTest {
     UserRepository userRepository;
 
     @Test
-    @DisplayName("OK")
+    @DisplayName("OK (registerUser)")
     void test_01() {
 
         // given
@@ -42,7 +42,7 @@ class UserServiceImplTest {
         var userCaptor = ArgumentCaptor.forClass(UserEntity.class);
         doNothing().when(userRepository).save(userCaptor.capture());
 
-        userService.createUser(param);
+        userService.registerUser(param);
 
         // then
         var user = userCaptor.getValue();
@@ -53,7 +53,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("NG: ユーザがすでに存在している")
+    @DisplayName("NG: ユーザがすでに存在している (registerUser)")
     void test_02() {
 
         // given
@@ -65,7 +65,7 @@ class UserServiceImplTest {
         doReturn(Optional.of(existingUser)).when(userRepository).findByUid(any());
 
         // then
-        assertThatThrownBy(() -> userService.createUser(param))
+        assertThatThrownBy(() -> userService.registerUser(param))
                 .isInstanceOf(UserAlreadyExistsException.class)
                 .hasMessageContaining(existingUser.getUid());
     }
