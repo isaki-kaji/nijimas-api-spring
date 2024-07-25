@@ -4,6 +4,7 @@ import com.nijimas.api.application.post.CreateParam;
 import com.nijimas.api.application.post.PostServiceImpl;
 import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.entity.PostSubcategoryEntity;
+import com.nijimas.api.core.entity.SubCategoryEntity;
 import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.repository.PostSubcategoryRepository;
 import com.nijimas.api.core.repository.SubCategoryRepository;
@@ -39,16 +40,25 @@ class PostServiceImplTest {
 
     String ownUid;
     String subCategory1Input;
+    String subCategory2Input;
     CreateParam param;
+    SubCategoryEntity existingSubCategory;
     ArgumentCaptor<PostEntity> postCaptor;
+    ArgumentCaptor<String> subCategoryCaptor;
+    ArgumentCaptor<PostSubcategoryEntity> postSubCategoryCaptor;
 
     @BeforeEach
     void setUp() {
         ownUid = "OKQchGYVq8Z6stnG6XS9YhBqWtZ2";
         subCategory1Input = "イタリアン";
+        subCategory2Input = "ミシュラン一つ星";
+        existingSubCategory = new SubCategoryEntity(subCategory1Input);
         param = createTestParam();
 
         postCaptor = ArgumentCaptor.forClass(PostEntity.class);
+        subCategoryCaptor = ArgumentCaptor.forClass(String.class);
+        postSubCategoryCaptor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);
+
         doNothing().when(postRepository).save(postCaptor.capture());
     }
 
@@ -68,15 +78,14 @@ class PostServiceImplTest {
     }
 
     @Test
-    @DisplayName("OK:未登録のサブカテゴリが1つ (registerPost)")
+    @DisplayName("OK:初出のサブカテゴリが1つ (registerPost)")
     void test_02() {
 
         // given
         param.setSubCategory1(subCategory1Input);
 
         doReturn(Optional.empty()).when(subCategoryRepository).findById(any());
-        ArgumentCaptor<String> subCategory1Captor = ArgumentCaptor.forClass(String.class);
-        doNothing().when(subCategoryRepository).save(subCategory1Captor.capture());
+        doNothing().when(subCategoryRepository).save(subCategoryCaptor.capture());
 
         ArgumentCaptor<PostSubcategoryEntity> pSCategory1Captor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);
         doNothing().when(postSubcategoryRepository).save(pSCategory1Captor.capture());
@@ -84,17 +93,82 @@ class PostServiceImplTest {
         // when
         postService.registerPost(param, ownUid);
         var post = postCaptor.getValue();
-        var subCategory1 = subCategory1Captor.getValue();
+        var subCategory1 = subCategoryCaptor.getValue();
         var pSCategory1 = pSCategory1Captor.getValue();
 
         // then
         assertPostEntity(post, param);
         assertSubCategory(subCategory1, param, "1");
         assertPostSubcategory(pSCategory1, param, "1");
-
     }
 
-    //subCategoryが1or2個ある時にhandleSubCategoryメソッドが何回呼ばれたかなどの確認が必要
+    @Test
+    @DisplayName("OK:初出のサブカテゴリが2つ (registerPost)")
+    void test_03() {
+
+        // given
+        param.setSubCategory1(subCategory1Input);
+        param.setSubCategory2(subCategory2Input);
+
+        doReturn(Optional.empty()).when(subCategoryRepository).findById(any());
+
+        // when
+        postService.registerPost(param, ownUid);
+        var post = postCaptor.getValue();
+
+        ArgumentCaptor<String> subCategoryCaptor = ArgumentCaptor.forClass(String.class);
+        verify(subCategoryRepository, times(2)).save(subCategoryCaptor.capture());
+
+        ArgumentCaptor<PostSubcategoryEntity> pSCategoryCaptor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);
+        verify(postSubcategoryRepository, times(2)).save(pSCategoryCaptor.capture());
+
+        var subCategory1 = subCategoryCaptor.getAllValues().get(0);
+        var subCategory2 = subCategoryCaptor.getAllValues().get(1);
+        var pSCategory1 = pSCategoryCaptor.getAllValues().get(0);
+        var pSCategory2 = pSCategoryCaptor.getAllValues().get(1);
+
+        // then
+        assertPostEntity(post, param);
+        assertSubCategory(subCategory1, param, "1");
+        assertSubCategory(subCategory2, param, "2");
+        assertPostSubcategory(pSCategory1, param, "1");
+        assertPostSubcategory(pSCategory2, param, "2");
+    }
+
+    @Test
+    @DisplayName("OK:サブカテゴリが2つ_サブカテゴリ1が既出_サブカテゴリ2が初出 (registerPost)")
+    void test_04() {
+
+        // given
+        param.setSubCategory1(subCategory1Input);
+        param.setSubCategory2(subCategory2Input);
+
+        doReturn(Optional.of(existingSubCategory), Optional.empty())
+                .when(subCategoryRepository).findById(any());
+
+        ArgumentCaptor<String> subCategoryCaptor = ArgumentCaptor.forClass(String.class);
+        doNothing().when(subCategoryRepository).save(subCategoryCaptor.capture());
+
+        // when
+        postService.registerPost(param, ownUid);
+        var post = postCaptor.getValue();
+
+        ArgumentCaptor<PostSubcategoryEntity> pSCategoryCaptor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);
+        verify(postSubcategoryRepository, times(2)).save(pSCategoryCaptor.capture());
+
+        var subCategory2 = subCategoryCaptor.getValue();
+        var pSCategory1 = pSCategoryCaptor.getAllValues().get(0);
+        var pSCategory2 = pSCategoryCaptor.getAllValues().get(1);
+
+        // then
+        assertPostEntity(post, param);
+        assertSubCategory(subCategory2, param, "2");
+        assertPostSubcategory(pSCategory1, param, "1");
+        assertPostSubcategory(pSCategory2, param, "2");
+
+        verify(subCategoryRepository, times(1)).save(any());
+    }
+
 
     private void assertPostEntity(PostEntity post, CreateParam param) {
         assertThat(post).isNotNull();
