@@ -68,7 +68,7 @@ class PostServiceImplTest {
     void test_01() {
 
         // when
-        postService.registerPost(param, ownUid);
+        postService.registerPost(param);
         var post = postCaptor.getValue();
 
         // then
@@ -91,7 +91,7 @@ class PostServiceImplTest {
         doNothing().when(postSubcategoryRepository).save(pSCategory1Captor.capture());
 
         // when
-        postService.registerPost(param, ownUid);
+        postService.registerPost(param);
         var post = postCaptor.getValue();
         var subCategory1 = subCategoryCaptor.getValue();
         var pSCategory1 = pSCategory1Captor.getValue();
@@ -113,7 +113,7 @@ class PostServiceImplTest {
         doReturn(Optional.empty()).when(subCategoryRepository).findById(any());
 
         // when
-        postService.registerPost(param, ownUid);
+        postService.registerPost(param);
         var post = postCaptor.getValue();
 
         ArgumentCaptor<String> subCategoryCaptor = ArgumentCaptor.forClass(String.class);
@@ -150,7 +150,7 @@ class PostServiceImplTest {
         doNothing().when(subCategoryRepository).save(subCategoryCaptor.capture());
 
         // when
-        postService.registerPost(param, ownUid);
+        postService.registerPost(param);
         var post = postCaptor.getValue();
 
         ArgumentCaptor<PostSubcategoryEntity> pSCategoryCaptor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);

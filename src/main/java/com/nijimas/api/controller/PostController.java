@@ -24,7 +24,7 @@ public class PostController {
             @RequestBody @Valid CreateParam createParam,
             @RequestAttribute("ownUid") String ownUid) {
         UserUtil.checkUid(createParam.getUid(), ownUid);
-        postService.registerPost(createParam, ownUid);
+        postService.registerPost(createParam);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

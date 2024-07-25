@@ -24,8 +24,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void registerPost(CreateParam param, String ownUid) {
-        UserUtil.checkUid(param.getUid(), ownUid);
+    public void registerPost(CreateParam param) {
 
         PostEntity post = new PostEntity(param);
         postRepository.save(post);
