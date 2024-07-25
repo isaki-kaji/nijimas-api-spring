@@ -53,7 +53,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("NG: ユーザがすでに存在している (registerUser)")
+    @DisplayName("NG:ユーザがすでに存在している (registerUser)")
     void test_02() {
 
         // given
