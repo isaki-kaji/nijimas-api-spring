@@ -1,9 +1,11 @@
 package com.nijimas.api.application.service;
 
 import com.nijimas.api.application.user.CreateParam;
+import com.nijimas.api.application.user.UpdateParam;
 import com.nijimas.api.application.user.UserServiceImpl;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
+import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,7 @@ class UserServiceImplTest {
     void test_01() {
 
         // given
-        var param = createTestParam();
+        var param = createTestCreateParam();
 
         // when
         doReturn(Optional.empty()).when(userRepository).findByUid(any());
@@ -57,24 +59,69 @@ class UserServiceImplTest {
     void test_02() {
 
         // given
-        var param = createTestParam();
-
+        var param = createTestCreateParam();
         var existingUser = new UserEntity(param);
 
-        // when
         doReturn(Optional.of(existingUser)).when(userRepository).findByUid(any());
 
-        // then
+        // when / then
         assertThatThrownBy(() -> userService.registerUser(param))
                 .isInstanceOf(UserAlreadyExistsException.class)
                 .hasMessageContaining(existingUser.getUid());
     }
 
-    private CreateParam createTestParam() {
+    @Test
+    @DisplayName("OK:ユーザ情報が更新できる (updateUser)")
+    void test_03() {
+
+        //given
+        var param = createTestUpdateParam();
+        var existingUser = new UserEntity(param);
+
+        doReturn(Optional.of(existingUser)).when(userRepository).findByUid(any());
+
+        // when
+        var userCaptor = ArgumentCaptor.forClass(UserEntity.class);
+        doNothing().when(userRepository).save(userCaptor.capture());
+
+        userService.updateUser(param);
+
+        // then
+        var user = userCaptor.getValue();
+        assertThat(user).isNotNull();
+        assertThat(user.getUid()).isEqualTo(param.getUid());
+        assertThat(user.getUsername()).isEqualTo(param.getUsername());
+        assertThat(user.getSelfIntro()).isEqualTo(param.getSelfIntro());
+    }
+
+    @Test
+    @DisplayName("NG:ユーザが存在しない (updateUser)")
+    void test_04() {
+
+        //given
+        var param = createTestUpdateParam();
+
+        doReturn(Optional.empty()).when(userRepository).findByUid(any());
+
+        // when / then
+        assertThatThrownBy(() -> userService.updateUser(param))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining(param.getUid());
+    }
+
+    private CreateParam createTestCreateParam() {
         var param = new CreateParam();
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         param.setUsername("kaji");
         param.setCountryCode("JP");
+        return param;
+    }
+
+    private UpdateParam createTestUpdateParam() {
+        var param = new UpdateParam();
+        param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
+        param.setUsername("isaki");
+        param.setSelfIntro("はじめまして");
         return param;
     }
 }
