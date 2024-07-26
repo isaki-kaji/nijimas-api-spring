@@ -29,6 +29,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UpdateParam param) {
+        if (userRepository.findByUid(param.getUid()).isEmpty()) {
+            throw new UserNotFoundException(param.getUid());
+        }
+
         UserEntity user = new UserEntity(param);
         userRepository.save(user);
     }
