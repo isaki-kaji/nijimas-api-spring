@@ -71,7 +71,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("OK:ユーザ情報が更新できる (updateUser)")
+    @DisplayName("OK (updateUser)")
     void test_03() {
 
         //given
