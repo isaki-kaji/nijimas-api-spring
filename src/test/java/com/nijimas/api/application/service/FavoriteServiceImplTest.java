@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -88,11 +89,9 @@ public class FavoriteServiceImplTest {
         doReturn(false).when(postRepository).existsById(any());
 
         // when / then
-        Exception exception = assertThrows(PostNotFoundException.class, () -> {
-            favoriteService.toggleFavorite(param);
-        });
-
-        assertThat(exception.getMessage()).contains(param.getPostId());
+        assertThatThrownBy(() -> favoriteService.toggleFavorite(param))
+                .isInstanceOf(PostNotFoundException.class)
+                .hasMessageContaining(param.getPostId());
 
         verify(favoriteRepository, times(0)).save(any());
         verify(favoriteRepository, times(0)).delete(any());
