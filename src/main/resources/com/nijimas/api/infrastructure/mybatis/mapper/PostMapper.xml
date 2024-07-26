@@ -21,7 +21,7 @@
 
     <select id="existsById" resultType="java.lang.Integer">
         SELECT 1
-        FROM posts
+        FROM post
         WHERE post_id = #{postId}
     </select>
 

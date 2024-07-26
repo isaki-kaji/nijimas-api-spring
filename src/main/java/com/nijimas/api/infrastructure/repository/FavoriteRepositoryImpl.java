@@ -21,12 +21,12 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
     }
 
     @Override
-    public void delete(FavoriteEntity favorite) {
-        favoriteMapper.delete(favorite);
+    public boolean existsById(FavoriteEntity favorite) {
+        return favoriteMapper.existsById(favorite) != null;
     }
 
     @Override
-    public Optional<FavoriteEntity> find(UUID postId, String uid) {
-        return Optional.ofNullable(favoriteMapper.find(postId, uid));
+    public void delete(FavoriteEntity favorite) {
+        favoriteMapper.delete(favorite);
     }
 }

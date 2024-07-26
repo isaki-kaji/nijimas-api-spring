@@ -29,7 +29,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         FavoriteEntity favorite = new FavoriteEntity(postId, param.getUid());
 
-        if (favoriteRepository.find(postId, param.getUid()).isEmpty()) {
+        if (!favoriteRepository.existsById(favorite)) {
             favoriteRepository.save(favorite);
             return FavoriteStatus.CREATED;
         }

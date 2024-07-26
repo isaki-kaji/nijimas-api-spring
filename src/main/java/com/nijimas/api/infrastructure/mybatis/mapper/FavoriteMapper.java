@@ -13,5 +13,5 @@ public interface FavoriteMapper {
 
     void delete(FavoriteEntity favorite);
 
-    FavoriteEntity find(@Param("postId") UUID postId, @Param("uid") String uid);
+    Integer existsById(FavoriteEntity favorite);
 }

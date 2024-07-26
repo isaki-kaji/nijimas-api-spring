@@ -13,13 +13,14 @@
         )
     </insert>
 
+    <select id="existsById" resultType="java.lang.Integer" parameterType="com.nijimas.api.core.entity.FavoriteEntity">
+        SELECT 1
+        FROM post
+        WHERE post_id = #{postId} and uid = #{uid}
+    </select>
+
     <delete id="delete" parameterType="com.nijimas.api.core.entity.FavoriteEntity">
         delete from "favorite"
         where post_id = #{postId} and uid = #{uid}
     </delete>
-
-    <select id="find" resultType="com.nijimas.api.core.entity.FavoriteEntity">
-        select * from "favorite"
-        where post_id = #{postId} and uid = #{uid}
-    </select>
 </mapper>

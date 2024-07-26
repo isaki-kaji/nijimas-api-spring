@@ -72,7 +72,7 @@ class PostServiceImplTest {
         var post = postCaptor.getValue();
 
         // then
-        assertPostEntity(post, param);
+        assertPost(post, param);
 
         verify(postSubcategoryRepository, times(0)).save(any());
     }
@@ -97,7 +97,7 @@ class PostServiceImplTest {
         var pSCategory1 = pSCategory1Captor.getValue();
 
         // then
-        assertPostEntity(post, param);
+        assertPost(post, param);
         assertSubCategory(subCategory1, param, "1");
         assertPostSubcategory(pSCategory1, param, "1");
     }
@@ -128,7 +128,7 @@ class PostServiceImplTest {
         var pSCategory2 = pSCategoryCaptor.getAllValues().get(1);
 
         // then
-        assertPostEntity(post, param);
+        assertPost(post, param);
         assertSubCategory(subCategory1, param, "1");
         assertSubCategory(subCategory2, param, "2");
         assertPostSubcategory(pSCategory1, param, "1");
@@ -161,7 +161,7 @@ class PostServiceImplTest {
         var pSCategory2 = pSCategoryCaptor.getAllValues().get(1);
 
         // then
-        assertPostEntity(post, param);
+        assertPost(post, param);
         assertSubCategory(subCategory2, param, "2");
         assertPostSubcategory(pSCategory1, param, "1");
         assertPostSubcategory(pSCategory2, param, "2");
@@ -170,7 +170,7 @@ class PostServiceImplTest {
     }
 
 
-    private void assertPostEntity(PostEntity post, CreateParam param) {
+    private void assertPost(PostEntity post, CreateParam param) {
         assertThat(post).isNotNull();
         assertThat(post.getPostId()).isEqualTo(CommonUtil.parseUuid(param.getPostId()));
         assertThat(post.getUid()).isEqualTo(param.getUid());

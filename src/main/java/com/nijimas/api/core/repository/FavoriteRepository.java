@@ -9,7 +9,7 @@ public interface FavoriteRepository {
 
     void save(FavoriteEntity favorite);
 
-    void delete(FavoriteEntity favorite);
+    boolean existsById(FavoriteEntity entity);
 
-    Optional<FavoriteEntity> find(UUID postId, String uid);
+    void delete(FavoriteEntity favorite);
 }

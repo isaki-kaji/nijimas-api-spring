@@ -7,7 +7,6 @@ import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.repository.PostSubcategoryRepository;
 import com.nijimas.api.core.repository.SubCategoryRepository;
 import com.nijimas.api.core.service.PostService;
-import com.nijimas.api.util.UserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
