@@ -19,6 +19,12 @@
         )
     </insert>
 
+    <select id="existsById" resultType="java.lang.Integer">
+        SELECT 1
+        FROM posts
+        WHERE post_id = #{postId}
+    </select>
+
     <select id="findById" resultMap="postResultMap">
         SELECT
         p.post_id,

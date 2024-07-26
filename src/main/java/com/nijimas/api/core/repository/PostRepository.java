@@ -11,6 +11,8 @@ public interface PostRepository {
 
     void save(PostEntity post);
 
+    Optional<Integer> existsById(UUID postId);
+
     Optional<PostDto> findById(UUID postId);
 
     List<PostDto> findByUid(String uid);

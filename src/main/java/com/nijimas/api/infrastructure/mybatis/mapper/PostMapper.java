@@ -12,6 +12,8 @@ public interface PostMapper {
 
     void insert(PostEntity post);
 
+    Integer existsById(UUID postId);
+
     PostDto findById(UUID postId);
 
     List<PostDto> findByUid(String uid);
