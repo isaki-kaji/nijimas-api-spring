@@ -22,8 +22,8 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Optional<Integer> existsById(UUID postId) {
-        return Optional.ofNullable(postMapper.existsById(postId));
+    public boolean existsById(UUID postId) {
+        return postMapper.existsById(postId) != null;
     }
 
     @Override

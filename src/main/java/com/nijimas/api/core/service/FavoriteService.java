@@ -1,8 +1,9 @@
 package com.nijimas.api.core.service;
 
 import com.nijimas.api.application.favorite.ToggleParam;
+import com.nijimas.api.core.constant.FavoriteStatus;
 
 public interface FavoriteService {
 
-    boolean toggleFavorite(ToggleParam param);
+    FavoriteStatus toggleFavorite(ToggleParam param);
 }

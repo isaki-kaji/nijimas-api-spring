@@ -1,7 +1,10 @@
 package com.nijimas.api.application.favorite;
 
+import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.entity.FavoriteEntity;
+import com.nijimas.api.core.exception.post.PostNotFoundException;
 import com.nijimas.api.core.repository.FavoriteRepository;
+import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.service.FavoriteService;
 import com.nijimas.api.util.CommonUtil;
 import lombok.AllArgsConstructor;
@@ -13,18 +16,24 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FavoriteServiceImpl implements FavoriteService {
     private final FavoriteRepository favoriteRepository;
+    private final PostRepository postRepository;
 
     @Override
-    public boolean toggleFavorite(ToggleParam param) {
+    public FavoriteStatus toggleFavorite(ToggleParam param) {
+
         UUID postId = CommonUtil.parseUuid(param.getPostId());
+
+        if (!postRepository.existsById(postId)) {
+            throw new PostNotFoundException(postId);
+        }
+
         FavoriteEntity favorite = new FavoriteEntity(postId, param.getUid());
-        boolean hasCreated = true;
 
         if (favoriteRepository.find(postId, param.getUid()).isEmpty()) {
             favoriteRepository.save(favorite);
-            return hasCreated;
+            return FavoriteStatus.CREATED;
         }
         favoriteRepository.delete(favorite);
-        return !hasCreated;
+        return FavoriteStatus.DELETED;
     }
 }
