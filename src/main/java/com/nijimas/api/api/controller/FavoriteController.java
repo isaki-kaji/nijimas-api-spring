@@ -1,4 +1,4 @@
-package com.nijimas.api.controller;
+package com.nijimas.api.api.controller;
 
 import com.nijimas.api.application.favorite.ToggleParam;
 import com.nijimas.api.core.constant.FavoriteStatus;

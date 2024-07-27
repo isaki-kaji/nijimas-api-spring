@@ -1,4 +1,4 @@
-package com.nijimas.api.middleware;
+package com.nijimas.api.api;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.*;
 import java.io.IOException;
 
-@Component
 public class TokenVerifyFilter implements Filter {
 
     @Override

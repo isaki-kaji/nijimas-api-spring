@@ -1,4 +1,4 @@
-package com.nijimas.api.controller;
+package com.nijimas.api.api.controller;
 
 import com.nijimas.api.application.post.CreateParam;
 import com.nijimas.api.core.dto.PostDto;

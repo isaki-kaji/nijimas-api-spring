@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -82,7 +81,7 @@ public class FavoriteServiceImplTest {
     }
 
     @Test
-    @DisplayName("NG: postが存在しない (toggleFavorite)")
+    @DisplayName("NG: 投稿が存在しない (toggleFavorite)")
     void test_03() {
 
         // given

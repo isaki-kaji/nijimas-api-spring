@@ -1,4 +1,4 @@
-package com.nijimas.api.controller;
+package com.nijimas.api.api.controller;
 
 import com.nijimas.api.application.user.CreateParam;
 import com.nijimas.api.application.user.UpdateParam;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/users")
 public class UserController {
     private UserService userService;
-    private UserRepository userRepository;
 
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody @Valid CreateParam createParam) {
