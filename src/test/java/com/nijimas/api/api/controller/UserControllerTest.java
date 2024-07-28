@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -30,12 +31,12 @@ public class UserControllerTest {
     @MockBean
     UserService userService;
 
-    String requestBody;
+    String createRequestBody;
     UserEntity user;
 
     @BeforeEach
     void setUp() {
-        requestBody = """
+        createRequestBody = """
                 {
                 "username": "kaji",
                 "country_code": "JP"
@@ -59,7 +60,7 @@ public class UserControllerTest {
         mockMvc.perform(
                         post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(requestBody)
+                                .content(createRequestBody)
                 )
                 .andExpect(status().isCreated());
     }
@@ -75,8 +76,89 @@ public class UserControllerTest {
         mockMvc.perform(
                         post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(requestBody)
+                                .content(createRequestBody)
                 )
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    @DisplayName("NG: リクエストのusernameの値が不正 (createUser)")
+    void test_03() throws Exception {
+
+        // given
+        createRequestBody = """
+                {
+                "username": "kkkkkkkkkkkkkkk",
+                "country_code": "JP"
+                }
+                """;
+
+        // when / then
+        mockMvc.perform(
+                        post("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                    {
+                        "message": "Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk)"
+                    }
+                """));
+    }
+
+    @Test
+    @DisplayName("NG: リクエストのcountry_codeの値が不正 (createUser)")
+    void test_04() throws Exception {
+
+        // given
+        createRequestBody = """
+                {
+                "username": "kaji",
+                "country_code": "JPN"
+                }
+                """;
+
+        // when / then
+        mockMvc.perform(
+                        post("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                    {
+                        "message": "Field 'country_code' must be 2 characters long (rejected value: JPN)"
+                    }
+                """));
+    }
+
+    @Test
+    @DisplayName("NG: リクエストのusernameとcountry_codeの値が不正 (createUser)")
+    void test_05() throws Exception {
+
+        // given
+        createRequestBody = """
+                {
+                "username": "kkkkkkkkkkkkkkk",
+                "country_code": "JPN"
+                }
+                """;
+
+        // when / then
+        mockMvc.perform(
+                        post("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                    {
+                        "message": "Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk) , Field 'country_code' must be 2 characters long (rejected value: JPN)"
+                    }
+                """));
     }
 }

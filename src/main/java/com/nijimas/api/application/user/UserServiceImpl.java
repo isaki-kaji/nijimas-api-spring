@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByUid(param.getUid()).isEmpty()) {
             throw new UserNotFoundException(param.getUid());
         }
-
         UserEntity user = new UserEntity(param);
         userRepository.save(user);
     }

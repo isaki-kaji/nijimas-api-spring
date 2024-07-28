@@ -3,6 +3,7 @@ package com.nijimas.api.core.exception;
 import com.nijimas.api.core.exception.common.ForbiddenException;
 import com.nijimas.api.core.exception.common.InvalidUuidFormatException;
 import com.nijimas.api.core.exception.common.UnauthorizedException;
+import com.nijimas.api.util.CommonUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -52,7 +53,8 @@ public class GlobalExceptionHandler {
 //    }
 
     private String createValidationErrorMessage(FieldError fe) {
+        String field = CommonUtil.toSnakeCase(fe.getField());
         return String.format("Field '%s' %s (rejected value: %s)",
-                fe.getField(), fe.getDefaultMessage(), fe.getRejectedValue());
+                field, fe.getDefaultMessage(), fe.getRejectedValue());
     }
 }
