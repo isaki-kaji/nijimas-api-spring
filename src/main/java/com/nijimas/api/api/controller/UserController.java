@@ -23,8 +23,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> registerUser(@RequestBody @Valid CreateParam createParam) {
+    public ResponseEntity<?> registerUser(
+            @RequestBody @Valid CreateParam createParam,
+            @RequestAttribute("ownUid") String ownUid) {
         try {
+            UserUtil.checkUid(createParam.getUid(), ownUid);
             UserEntity user = userService.registerUser(createParam);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (UserAlreadyExistsException e) {
