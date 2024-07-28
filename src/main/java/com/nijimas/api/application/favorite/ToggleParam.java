@@ -17,7 +17,5 @@ public class ToggleParam {
     @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", message = "must be a valid UUID")
     private String postId;
 
-    @NotBlank(message = "can't be empty")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "must contain only alphanumeric characters")
     private String uid;
 }

@@ -15,8 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateParam {
 
-    @NotBlank(message = "can't be empty")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "must contain only alphanumeric characters")
     private String uid;
 
     @NotBlank(message = "can't be empty")

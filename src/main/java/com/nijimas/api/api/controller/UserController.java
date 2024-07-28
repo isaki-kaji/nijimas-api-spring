@@ -6,9 +6,7 @@ import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.entity.UserEntity;
-import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
-import com.nijimas.api.util.UserUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,11 +22,11 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> registerUser(
-            @RequestBody @Valid CreateParam createParam,
+            @RequestBody @Valid CreateParam param,
             @RequestAttribute("ownUid") String ownUid) {
         try {
-            UserUtil.checkUid(createParam.getUid(), ownUid);
-            UserEntity user = userService.registerUser(createParam);
+            param.setUid(ownUid);
+            UserEntity user = userService.registerUser(param);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (UserAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -39,10 +37,10 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<?> updateUser(
-            @RequestBody @Valid UpdateParam updateParam,
+            @RequestBody @Valid UpdateParam param,
             @RequestAttribute("ownUid") String ownUid) {
-        UserUtil.checkUid(updateParam.getUid(), ownUid);
-        userService.updateUser(updateParam);
+        param.setUid(ownUid);
+        userService.updateUser(param);
         return ResponseEntity.noContent().build();
     }
 

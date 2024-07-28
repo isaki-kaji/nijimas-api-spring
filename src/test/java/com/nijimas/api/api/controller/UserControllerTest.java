@@ -37,7 +37,6 @@ public class UserControllerTest {
     void setUp() {
         requestBody = """
                 {
-                "uid": "OKQchGYVq8Z6stnG6XS9YhBqWtZ2",
                 "username": "kaji",
                 "country_code": "JP"
                 }
@@ -79,12 +78,5 @@ public class UserControllerTest {
                                 .content(requestBody)
                 )
                 .andExpect(status().isConflict());
-    }
-
-    @Test
-    @DisplayName("NG: 許可されていないユーザの情報にアクセスしようとしている (registerUser)")
-    void test_03() throws Exception {
-
-
     }
 }

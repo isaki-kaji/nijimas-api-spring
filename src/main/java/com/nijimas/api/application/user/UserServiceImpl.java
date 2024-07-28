@@ -5,10 +5,8 @@ import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.repository.UserRepository;
 import com.nijimas.api.core.service.UserService;
-import com.nijimas.api.util.UserUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 @Service
 @AllArgsConstructor

@@ -5,7 +5,6 @@ import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
 import com.nijimas.api.core.service.FavoriteService;
-import com.nijimas.api.util.UserUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class FavoriteController {
     public ResponseEntity<?> toggleFavorite(
             @RequestBody @Valid ToggleParam param,
             @RequestAttribute("ownUid") String ownUid) {
-        UserUtil.checkUid(param.getUid(), ownUid);
+        param.setUid(ownUid);
         try {
             FavoriteStatus status = favoriteService.toggleFavorite(param);
             if (status == FavoriteStatus.CREATED) {
