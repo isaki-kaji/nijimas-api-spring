@@ -3,7 +3,6 @@ package com.nijimas.api.api.controller;
 import com.nijimas.api.application.post.CreateParam;
 import com.nijimas.api.core.dto.PostDto;
 import com.nijimas.api.core.service.PostService;
-import com.nijimas.api.util.UserUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,10 +20,10 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<?> registerPost(
-            @RequestBody @Valid CreateParam createParam,
+            @RequestBody @Valid CreateParam param,
             @RequestAttribute("ownUid") String ownUid) {
-        UserUtil.checkUid(createParam.getUid(), ownUid);
-        postService.registerPost(createParam);
+        param.setUid(ownUid);
+        postService.registerPost(param);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
