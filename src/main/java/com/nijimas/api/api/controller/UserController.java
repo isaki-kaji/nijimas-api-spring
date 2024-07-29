@@ -40,8 +40,13 @@ public class UserController {
             @RequestBody @Valid UpdateParam param,
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
-        userService.updateUser(param);
-        return ResponseEntity.noContent().build();
+        try {
+            userService.updateUser(param);
+            return ResponseEntity.noContent().build();
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiErrorResponse(e));
+        }
     }
 
     @GetMapping(path = "/{uid}")

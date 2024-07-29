@@ -3,6 +3,7 @@ package com.nijimas.api.api.controller;
 import com.nijimas.api.TestConfig;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
+import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,6 +33,7 @@ public class UserControllerTest {
     UserService userService;
 
     String createRequestBody;
+    String updateRequestBody;
     UserEntity user;
 
     @BeforeEach
@@ -40,6 +42,13 @@ public class UserControllerTest {
                 {
                 "username": "kaji",
                 "country_code": "JP"
+                }
+                """;
+
+        updateRequestBody = """
+                {
+                "username": "kaji",
+                "self_intro": "はじめまして!!"
                 }
                 """;
 
@@ -160,5 +169,37 @@ public class UserControllerTest {
                         "message": "Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk) , Field 'country_code' must be 2 characters long (rejected value: JPN)"
                     }
                 """));
+    }
+
+    @Test
+    @DisplayName("OK: (updateUser)")
+    void test_06() throws Exception {
+
+        // given
+        doNothing().when(userService).updateUser(any());
+
+        // when / then
+        mockMvc.perform(
+                        put("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(updateRequestBody)
+                )
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("NG: ユーザが存在しない (updateUser)")
+    void test_07() throws Exception {
+
+        // given
+        doThrow(UserNotFoundException.class).when(userService).updateUser(any());
+
+        // when / then
+        mockMvc.perform(
+                        put("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(updateRequestBody)
+                )
+                .andExpect(status().isNotFound());
     }
 }
