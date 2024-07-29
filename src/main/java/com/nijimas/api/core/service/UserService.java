@@ -5,7 +5,7 @@ import com.nijimas.api.application.user.UpdateParam;
 import com.nijimas.api.core.entity.UserEntity;
 
 public interface UserService {
-    UserEntity registerUser(CreateParam createParam);
+    void registerUser(CreateParam createParam);
 
     void updateUser(UpdateParam updateParam);
 

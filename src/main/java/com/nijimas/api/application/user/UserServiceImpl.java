@@ -15,14 +15,11 @@ public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
 
     @Override
-    public UserEntity registerUser(CreateParam param) {
+    public void registerUser(CreateParam param) {
         userRepository.findByUid(param.getUid()).ifPresent(user -> {
             throw new UserAlreadyExistsException(user.getUid());
         });
-
-        UserEntity user = new UserEntity(param);
-        userRepository.save(user);
-        return user;
+        userRepository.save(new UserEntity(param));
     }
 
     @Override

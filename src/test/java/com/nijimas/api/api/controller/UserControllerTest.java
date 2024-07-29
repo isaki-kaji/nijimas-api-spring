@@ -63,7 +63,7 @@ public class UserControllerTest {
     void test_01() throws Exception {
 
         // given
-        doReturn(user).when(userService).registerUser(any());
+        doNothing().when(userService).registerUser(any());
 
         // when / then
         mockMvc.perform(
@@ -166,7 +166,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
                     {
-                        "message": "Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk) , Field 'country_code' must be 2 characters long (rejected value: JPN)"
+                        "message": "Field 'country_code' must be 2 characters long (rejected value: JPN) , Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk)"
                     }
                 """));
     }
