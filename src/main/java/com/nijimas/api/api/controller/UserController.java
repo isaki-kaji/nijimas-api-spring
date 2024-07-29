@@ -7,11 +7,14 @@ import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.service.UserService;
+import com.nijimas.api.util.ControllerUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 
 @RestController
@@ -27,12 +30,12 @@ public class UserController {
         try {
             param.setUid(ownUid);
             UserEntity user = userService.registerUser(param);
-            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+            URI location = ControllerUtil.createLocation(ownUid);
+            return ResponseEntity.created(location).build();
         } catch (UserAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ApiErrorResponse(e));
         }
-
     }
 
     @PutMapping
