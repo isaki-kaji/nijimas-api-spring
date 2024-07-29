@@ -27,8 +27,9 @@ public class UserController {
     public ResponseEntity<?> registerUser(
             @RequestBody @Valid CreateParam param,
             @RequestAttribute("ownUid") String ownUid) {
+        param.setUid(ownUid);
         try {
-            param.setUid(ownUid);
+            userService.registerUser(param);
             URI location = ControllerUtil.createLocation(ownUid);
             return ResponseEntity.created(location).build();
         } catch (UserAlreadyExistsException e) {
