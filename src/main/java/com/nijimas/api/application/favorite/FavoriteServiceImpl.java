@@ -1,6 +1,6 @@
 package com.nijimas.api.application.favorite;
 
-import com.nijimas.api.core.constant.FavoriteStatus;
+import com.nijimas.api.core.constant.FavoriteStatusConstants;
 import com.nijimas.api.core.entity.FavoriteEntity;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
 import com.nijimas.api.core.repository.FavoriteRepository;
@@ -19,7 +19,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     private final PostRepository postRepository;
 
     @Override
-    public FavoriteStatus toggleFavorite(ToggleParam param) {
+    public FavoriteStatusConstants toggleFavorite(ToggleParam param) {
 
         UUID postId = CommonUtil.parseUuid(param.getPostId());
 
@@ -31,9 +31,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         if (!favoriteRepository.existsById(favorite)) {
             favoriteRepository.save(favorite);
-            return FavoriteStatus.CREATED;
+            return FavoriteStatusConstants.CREATED;
         }
         favoriteRepository.delete(favorite);
-        return FavoriteStatus.DELETED;
+        return FavoriteStatusConstants.DELETED;
     }
 }

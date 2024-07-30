@@ -2,7 +2,7 @@ package com.nijimas.api.application.service;
 
 import com.nijimas.api.application.favorite.FavoriteServiceImpl;
 import com.nijimas.api.application.favorite.ToggleParam;
-import com.nijimas.api.core.constant.FavoriteStatus;
+import com.nijimas.api.core.constant.FavoriteStatusConstants;
 import com.nijimas.api.core.entity.FavoriteEntity;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
 import com.nijimas.api.core.repository.FavoriteRepository;
@@ -58,7 +58,7 @@ public class FavoriteServiceImplTest {
         var favorite = favoriteCaptor.getValue();
 
         // then
-        assertThat(favoriteStatus).isEqualTo(FavoriteStatus.CREATED);
+        assertThat(favoriteStatus).isEqualTo(FavoriteStatusConstants.CREATED);
         assertFavorite(favorite, param);
     }
 
@@ -76,7 +76,7 @@ public class FavoriteServiceImplTest {
         var favorite = favoriteCaptor.getValue();
 
         // then
-        assertThat(favoriteStatus).isEqualTo(FavoriteStatus.DELETED);
+        assertThat(favoriteStatus).isEqualTo(FavoriteStatusConstants.DELETED);
         assertFavorite(favorite, param);
     }
 

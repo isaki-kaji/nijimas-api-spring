@@ -1,5 +1,7 @@
 package com.nijimas.api.application.post;
 
+import com.nijimas.api.core.constant.MessageConstants;
+import com.nijimas.api.core.constant.RegexpConstants;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -16,13 +18,14 @@ import lombok.Setter;
 public class CreateParam {
 
     @NotBlank(message = "can't be empty")
-    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", message = "must be a valid UUID")
+    @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")
     private String postId;
 
     private String uid;
 
     @NotBlank(message = "can't be empty")
     @Size(max = 255, message = "must be less than 255 characters")
+    @Pattern(regexp = RegexpConstants.MAIN_CATEGORY_PATTERN, message = MessageConstants.MAIN_CATEGORY_INVALID)
     private String mainCategory;
 
     @Size(max = 255, message = "must be less than 255 characters")
@@ -31,6 +34,7 @@ public class CreateParam {
     @Size(max = 255, message = "must be less than 255 characters")
     private String subCategory2;
 
+    @Size(max = 200, message = "must be less than 200 characters")
     private String postText;
 
     @Size(max = 2000, message = "must be less than 2000 characters")
@@ -42,6 +46,6 @@ public class CreateParam {
     private String location;
 
     @NotBlank(message = "can't be empty")
-    @Pattern(regexp = "[123]", message = "must be one of 1, 2, or 3")
+    @Pattern(regexp = RegexpConstants.PUBLIC_TYPE_NO_PATTERN, message = "must be one of 1, 2, or 3")
     private String publicTypeNo;
 }
