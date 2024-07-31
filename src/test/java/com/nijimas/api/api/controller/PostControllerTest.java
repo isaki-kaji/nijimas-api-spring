@@ -12,10 +12,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PostController.class)
 @Import(TestConfig.class)
@@ -58,5 +59,97 @@ public class PostControllerTest {
                                 .content(createRequestBody)
                 )
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("NG: post_idの値が不正 (registerPost)")
+    void test_02() throws Exception{
+
+        // given
+        createRequestBody = """
+                {
+                "post_id": "9ad11a60-d866-e608-58f9-89e5824f8cc31",
+                "main_category": "food",
+                "sub_category1": "中華",
+                "sub_category2": "北京ダック",
+                "expense": "10000",
+                "post_text": "とてもおいしかったです",
+                "public_type_no": "1"
+                }
+                """;
+        doNothing().when(postService).registerPost(any());
+
+        // when / then
+        mockMvc.perform(
+                        post("/posts")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(containsString("9ad11a60-d866-e608-58f9-89e5824f8cc31")));
+    }
+
+    @Test
+    @DisplayName("NG: main_categoryの値が不正 (registerPost)")
+    void test_03() throws Exception{
+
+        // given
+        createRequestBody = """
+                {
+                "post_id": "9ad11a60-d866-e608-58f9-89e5824f8cc3",
+                "main_category": "game",
+                "sub_category1": "中華",
+                "sub_category2": "北京ダック",
+                "expense": "10000",
+                "post_text": "とてもおいしかったです",
+                "public_type_no": "1"
+                }
+                """;
+        doNothing().when(postService).registerPost(any());
+
+        // when / then
+        mockMvc.perform(
+                        post("/posts")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json("""
+                    {
+                        "message": "Field 'main_category' must be one of {food,hobbies,fashion,goods,essentials,travel,entertainment,transport,other} (rejected value: game)"
+                    }
+                """));
+    }
+
+    @Test
+    @DisplayName("NG: public_type_noの値が不正 (registerPost)")
+    void test_04() throws Exception{
+
+        // given
+        createRequestBody = """
+                {
+                "post_id": "9ad11a60-d866-e608-58f9-89e5824f8cc3",
+                "main_category": "fashion",
+                "sub_category1": "中華",
+                "sub_category2": "北京ダック",
+                "expense": "10000",
+                "post_text": "とてもおいしかったです",
+                "public_type_no": "0"
+                }
+                """;
+        doNothing().when(postService).registerPost(any());
+
+        // when / then
+        mockMvc.perform(
+                        post("/posts")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(createRequestBody)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json("""
+                    {
+                        "message": "Field 'public_type_no' must be one of 1, 2, or 3 (rejected value: 0)"
+                    }
+                """));;
     }
 }
