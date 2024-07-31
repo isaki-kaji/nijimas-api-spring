@@ -28,6 +28,11 @@ public class PostServiceImpl implements PostService {
         PostEntity post = new PostEntity(param);
         postRepository.save(post);
 
+        // subCategory2のみ設定されていた場合はsubCategory2がsubCategory2として登録される
+//        if (param.getSubCategory1() == null && param.getSubCategory2() != null){
+//            handleSubCategory(post.getPostId(), param.getSubCategory2(), "1");
+//            return;
+//        }
         handleSubCategory(post.getPostId(), param.getSubCategory1(), "1");
         handleSubCategory(post.getPostId(), param.getSubCategory2(), "2");
     }
