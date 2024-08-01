@@ -1,7 +1,7 @@
 package com.nijimas.api.api.controller;
 
 import com.nijimas.api.application.favorite.ToggleParam;
-import com.nijimas.api.core.constant.FavoriteStatusConstants;
+import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
 import com.nijimas.api.core.service.FavoriteService;
@@ -24,8 +24,8 @@ public class FavoriteController {
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
         try {
-            FavoriteStatusConstants status = favoriteService.toggleFavorite(param);
-            if (status == FavoriteStatusConstants.CREATED) {
+            FavoriteStatus status = favoriteService.toggleFavorite(param);
+            if (status == FavoriteStatus.CREATED) {
                 return ResponseEntity.status(HttpStatus.CREATED).build();
             }
             return ResponseEntity.noContent().build();

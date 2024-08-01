@@ -1,7 +1,6 @@
 package com.nijimas.api.api.controller;
 
 import com.nijimas.api.TestConfig;
-import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;
 import com.nijimas.api.core.service.UserService;
@@ -35,7 +34,6 @@ public class UserControllerTest {
 
     String createRequestBody;
     String updateRequestBody;
-    UserEntity user;
 
     @BeforeEach
     void setUp() {
@@ -52,11 +50,6 @@ public class UserControllerTest {
                 "self_intro": "はじめまして!!"
                 }
                 """;
-
-        user = new UserEntity();
-        user.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
-        user.setUsername("kaji");
-        user.setCountryCode("JP");
     }
 
     @Test
@@ -190,7 +183,8 @@ public class UserControllerTest {
     void test_07() throws Exception {
 
         // given
-        doThrow(UserNotFoundException.class).when(userService).updateUser(any());
+        var uid = "OKQchGYVq8Z6stnG6XS9YhBqWtZ2";
+        doThrow(new UserNotFoundException(uid)).when(userService).updateUser(any());
 
         // when / then
         mockMvc.perform(
@@ -198,6 +192,11 @@ public class UserControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(updateRequestBody)
                 )
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                    {
+                        "message": "User with uid OKQchGYVq8Z6stnG6XS9YhBqWtZ2 not found"
+                    }
+                """));
     }
 }
