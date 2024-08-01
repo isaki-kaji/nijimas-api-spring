@@ -1,6 +1,6 @@
 package com.nijimas.api.core.constant;
 
-public enum FavoriteStatusConstants {
+public enum FavoriteStatus {
     CREATED,
     DELETED
 }
