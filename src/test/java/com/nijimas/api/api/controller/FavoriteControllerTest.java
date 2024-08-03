@@ -92,7 +92,7 @@ public class FavoriteControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(content().json("""
                     {
-                        "message": "Post with id 9ad11a60-d866-e608-58f9-89e5824f8cc3 not"
+                        "message": "Post with id 9ad11a60-d866-e608-58f9-89e5824f8cc3 not found"
                     }
                 """));
     }
