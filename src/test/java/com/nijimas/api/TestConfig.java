@@ -12,7 +12,7 @@ public class TestConfig {
 
     @Bean
     @Primary
-    public FilterRegistrationBean<Filter> authFilter() {
+    public FilterRegistrationBean<Filter> testAuthFilter() {
         FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new MockTokenVerifyFilter());
         registrationBean.addUrlPatterns("/*");
