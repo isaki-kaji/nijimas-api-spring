@@ -9,5 +9,4 @@ class NijimasApiApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
