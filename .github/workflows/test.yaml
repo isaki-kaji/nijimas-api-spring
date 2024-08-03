@@ -2,17 +2,22 @@ name: Java CI Test
 
 on:
   push:
-    paths: ["src/**/*.java"]
+    paths: ["src/**/*.java", '.github/workflows/*.yaml']
     branches: [ "main" ]
   pull_request:
-    paths: ["src/**/*.java"]
+    paths: ["src/**/*.java", '.github/workflows/*.yaml']
     branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    timeout-minutes: 15
 
     steps:
       - name: Checkout Code
@@ -23,6 +28,7 @@ jobs:
         with:
           java-version-file: '.java-version'
           distribution: oracle
+          cache: gradle
 
       - name: Test
         run: ./gradlew test
