@@ -25,4 +25,4 @@ jobs:
           distribution: oracle
 
       - name: Test
-          run: ./gradlew test
+        run: ./gradlew test
