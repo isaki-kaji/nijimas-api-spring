@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.MonthlyExpenseSummaryMapper">
+
+    <insert id="insert" parameterType="com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity">
+        INSERT INTO "monthly_expense_summary" (uid, year, month, main_category, total_expense)
+        VALUES (
+        #{uid},
+        #{year},
+        #{month},
+        #{mainCategory},
+        #{totalExpense},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity">
+        UPDATE "monthly_expense_summary" SET
+        total_expense = #{totalExpense}
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND main_category = #{mainCategory}
+    </update>
+
+    <select id="findOne" resultType="com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity">
+        SELECT * FROM "monthly_expense_summary"
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND main_category = #{mainCategory}
+    </select>
+</mapper>
