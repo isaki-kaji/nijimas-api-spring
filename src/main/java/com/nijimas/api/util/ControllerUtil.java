@@ -7,6 +7,11 @@ import java.net.URI;
 
 public class ControllerUtil {
 
+    // インスタンス化でき何ようにしている
+    private ControllerUtil() {
+        throw new AssertionError();
+    }
+
     @Value("${app.base-url}")
     private static String baseUrl;
 
