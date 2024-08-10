@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void registerPost(CreateParam param) {
+    public void registerPost(CreatePostParam param) {
 
         PostEntity post = new PostEntity(param);
         postRepository.save(post);

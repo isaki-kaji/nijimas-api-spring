@@ -1,6 +1,6 @@
 package com.nijimas.api.application.service;
 
-import com.nijimas.api.application.post.CreateParam;
+import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.application.post.PostServiceImpl;
 import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.entity.PostSubcategoryEntity;
@@ -41,7 +41,7 @@ class PostServiceImplTest {
     String ownUid;
     String subCategory1Input;
     String subCategory2Input;
-    CreateParam param;
+    CreatePostParam param;
     SubCategoryEntity existingSubCategory;
     ArgumentCaptor<PostEntity> postCaptor;
     ArgumentCaptor<String> subCategoryCaptor;
@@ -170,7 +170,7 @@ class PostServiceImplTest {
     }
 
 
-    private void assertPost(PostEntity post, CreateParam param) {
+    private void assertPost(PostEntity post, CreatePostParam param) {
         assertThat(post).isNotNull();
         assertThat(post.getPostId()).isEqualTo(CommonUtil.parseUuid(param.getPostId()));
         assertThat(post.getUid()).isEqualTo(param.getUid());
@@ -180,7 +180,7 @@ class PostServiceImplTest {
         assertThat(post.getPublicTypeNo()).isEqualTo(param.getPublicTypeNo());
     }
 
-    private void assertSubCategory(String categoryName, CreateParam param, String categoryNo) {
+    private void assertSubCategory(String categoryName, CreatePostParam param, String categoryNo) {
         assertThat(categoryName).isNotNull();
 
         if (categoryNo.equals("1")) {
@@ -192,7 +192,7 @@ class PostServiceImplTest {
         }
     }
 
-    private void assertPostSubcategory(PostSubcategoryEntity pSCategory, CreateParam param, String categoryNo) {
+    private void assertPostSubcategory(PostSubcategoryEntity pSCategory, CreatePostParam param, String categoryNo) {
         assertThat(pSCategory).isNotNull();
         assertThat(pSCategory.getPostId()).isEqualTo(CommonUtil.parseUuid(param.getPostId()));
         if (categoryNo.equals("1")) {
@@ -206,8 +206,8 @@ class PostServiceImplTest {
         }
     }
 
-    private CreateParam createTestParam() {
-        var param = new CreateParam();
+    private CreatePostParam createTestParam() {
+        var param = new CreatePostParam();
         param.setPostId("9ad11a60-d866-e608-58f9-89e5824f8cc3");
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         param.setMainCategory("food");

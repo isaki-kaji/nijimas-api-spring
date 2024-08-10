@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
 
     @Override
-    public void registerUser(CreateParam param) {
+    public void registerUser(CreateUserParam param) {
         userRepository.findByUid(param.getUid()).ifPresent(user -> {
             throw new UserAlreadyExistsException(user.getUid());
         });
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UpdateParam param) {
+    public void updateUser(UpdateUserParam param) {
         if (userRepository.findByUid(param.getUid()).isEmpty()) {
             throw new UserNotFoundException(param.getUid());
         }

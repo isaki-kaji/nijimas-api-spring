@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateParam {
+public class CreatePostParam {
 
     @NotBlank(message = "can't be empty")
     @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")

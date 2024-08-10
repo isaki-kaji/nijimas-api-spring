@@ -1,6 +1,6 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.application.post.CreateParam;
+import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.core.dto.PostDto;
 import com.nijimas.api.core.service.PostService;
 import com.nijimas.api.util.ControllerUtil;
@@ -21,7 +21,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<?> registerPost(
-            @RequestBody @Valid CreateParam param,
+            @RequestBody @Valid CreatePostParam param,
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
         postService.registerPost(param);

@@ -1,6 +1,6 @@
 package com.nijimas.api.core.entity;
 
-import com.nijimas.api.application.post.CreateParam;
+import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.util.CommonUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class PostEntity {
     private String publicTypeNo;
     private OffsetDateTime createdAt;
 
-    public PostEntity(CreateParam param) {
+    public PostEntity(CreatePostParam param) {
         this.postId = CommonUtil.parseUuid(param.getPostId());
         this.uid = param.getUid();
         this.mainCategory = param.getMainCategory();

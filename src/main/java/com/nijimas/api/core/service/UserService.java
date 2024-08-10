@@ -1,13 +1,13 @@
 package com.nijimas.api.core.service;
 
-import com.nijimas.api.application.user.CreateParam;
-import com.nijimas.api.application.user.UpdateParam;
+import com.nijimas.api.application.user.CreateUserParam;
+import com.nijimas.api.application.user.UpdateUserParam;
 import com.nijimas.api.core.entity.UserEntity;
 
 public interface UserService {
-    void registerUser(CreateParam createParam);
+    void registerUser(CreateUserParam createParam);
 
-    void updateUser(UpdateParam updateParam);
+    void updateUser(UpdateUserParam updateParam);
 
     UserEntity findByUid(String uid);
 }

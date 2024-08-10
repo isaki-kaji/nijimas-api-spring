@@ -1,7 +1,7 @@
 package com.nijimas.api.core.entity;
 
-import com.nijimas.api.application.user.CreateParam;
-import com.nijimas.api.application.user.UpdateParam;
+import com.nijimas.api.application.user.CreateUserParam;
+import com.nijimas.api.application.user.UpdateUserParam;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,13 +28,13 @@ public class UserEntity {
         this.countryCode = countryCode;
     }
 
-    public UserEntity(CreateParam param) {
+    public UserEntity(CreateUserParam param) {
         this.uid = param.getUid();
         this.username = param.getUsername();
         this.countryCode = param.getCountryCode();
     }
 
-    public UserEntity(UpdateParam param) {
+    public UserEntity(UpdateUserParam param) {
         this.uid = param.getUid();
         this.username = param.getUsername();
         this.countryCode = param.getCountryCode();

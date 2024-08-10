@@ -1,6 +1,6 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.application.favorite.ToggleParam;
+import com.nijimas.api.application.favorite.ToggleFavoriteParam;
 import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
@@ -20,7 +20,7 @@ public class FavoriteController {
 
     @PostMapping
     public ResponseEntity<?> toggleFavorite(
-            @RequestBody @Valid ToggleParam param,
+            @RequestBody @Valid ToggleFavoriteParam param,
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
         try {

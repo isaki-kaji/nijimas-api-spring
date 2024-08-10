@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ToggleParam {
+public class ToggleFavoriteParam {
 
     @NotBlank(message = "can't be empty")
     @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")

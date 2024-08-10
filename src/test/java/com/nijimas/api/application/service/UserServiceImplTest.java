@@ -1,7 +1,7 @@
 package com.nijimas.api.application.service;
 
-import com.nijimas.api.application.user.CreateParam;
-import com.nijimas.api.application.user.UpdateParam;
+import com.nijimas.api.application.user.CreateUserParam;
+import com.nijimas.api.application.user.UpdateUserParam;
 import com.nijimas.api.application.user.UserServiceImpl;
 import com.nijimas.api.core.entity.UserEntity;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
@@ -109,16 +109,16 @@ class UserServiceImplTest {
                 .hasMessageContaining(param.getUid());
     }
 
-    private CreateParam createTestCreateParam() {
-        var param = new CreateParam();
+    private CreateUserParam createTestCreateParam() {
+        var param = new CreateUserParam();
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         param.setUsername("kaji");
         param.setCountryCode("JP");
         return param;
     }
 
-    private UpdateParam createTestUpdateParam() {
-        var param = new UpdateParam();
+    private UpdateUserParam createTestUpdateParam() {
+        var param = new UpdateUserParam();
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         param.setUsername("isaki");
         param.setSelfIntro("はじめまして");
