@@ -19,7 +19,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     private final PostRepository postRepository;
 
     @Override
-    public FavoriteStatus toggleFavorite(ToggleParam param) {
+    public FavoriteStatus toggleFavorite(ToggleFavoriteParam param) {
 
         UUID postId = CommonUtil.parseUuid(param.getPostId());
 

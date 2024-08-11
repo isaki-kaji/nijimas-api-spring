@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.PostEntity">
-        insert into "post" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no)
+        insert into "post" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no, created_at)
         values (
         #{postId},
         #{uid},
@@ -15,7 +15,8 @@
         case when #{photoUrl} = '' then null else #{photoUrl} end,
         #{expense},
         #{location},
-        #{publicTypeNo}
+        #{publicTypeNo},
+        #{createdAt}
         )
     </insert>
 

@@ -1,7 +1,7 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.application.user.CreateParam;
-import com.nijimas.api.application.user.UpdateParam;
+import com.nijimas.api.application.user.CreateUserParam;
+import com.nijimas.api.application.user.UpdateUserParam;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;
@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> registerUser(
-            @RequestBody @Valid CreateParam param,
+            @RequestBody @Valid CreateUserParam param,
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
         try {
@@ -40,7 +40,7 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<?> updateUser(
-            @RequestBody @Valid UpdateParam param,
+            @RequestBody @Valid UpdateUserParam param,
             @RequestAttribute("ownUid") String ownUid) {
         param.setUid(ownUid);
         try {

@@ -1,7 +1,7 @@
 package com.nijimas.api.application.service;
 
 import com.nijimas.api.application.favorite.FavoriteServiceImpl;
-import com.nijimas.api.application.favorite.ToggleParam;
+import com.nijimas.api.application.favorite.ToggleFavoriteParam;
 import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.entity.FavoriteEntity;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
@@ -34,7 +34,7 @@ public class FavoriteServiceImplTest {
     @Mock
     PostRepository postRepository;
 
-    ToggleParam param;
+    ToggleFavoriteParam param;
     ArgumentCaptor<FavoriteEntity> favoriteCaptor;
 
     @BeforeEach
@@ -96,14 +96,14 @@ public class FavoriteServiceImplTest {
         verify(favoriteRepository, times(0)).delete(any());
     }
 
-    private void assertFavorite(FavoriteEntity favorite, ToggleParam param) {
+    private void assertFavorite(FavoriteEntity favorite, ToggleFavoriteParam param) {
         assertThat(favorite).isNotNull();
         assertThat(favorite.getPostId()).isEqualTo(CommonUtil.parseUuid(param.getPostId()));
         assertThat(favorite.getUid()).isEqualTo(param.getUid());
     }
 
-    private ToggleParam createTestParam() {
-        var param = new ToggleParam();
+    private ToggleFavoriteParam createTestParam() {
+        var param = new ToggleFavoriteParam();
         param.setPostId("9ad11a60-d866-e608-58f9-89e5824f8cc3");
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         return param;

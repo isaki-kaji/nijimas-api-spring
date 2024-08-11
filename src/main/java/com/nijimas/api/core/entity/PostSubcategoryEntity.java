@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 public class PostSubcategoryEntity {
-    private Long postSubCategoryId;
     private UUID postId;
     private String subcategoryNo;
     private String subCategory;

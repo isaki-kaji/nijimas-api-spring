@@ -1,5 +1,7 @@
 package com.nijimas.api.application.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.constant.MessageConstants;
 import com.nijimas.api.core.constant.RegexpConstants;
 import jakarta.validation.constraints.Max;
@@ -11,11 +13,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateParam {
+public class CreatePostParam {
 
     @NotBlank(message = "can't be empty")
     @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")
@@ -40,7 +45,7 @@ public class CreateParam {
     @Size(max = 2000, message = "must be less than 2000 characters")
     private String photoUrl;
 
-    @Max(value = 99999999, message = "must be less than 100000000")
+    @Max(value = CommonConstants.MAX_EXPENSE, message = "must be less than 100000000")
     private Integer expense;
 
     private String location;
@@ -48,4 +53,7 @@ public class CreateParam {
     @NotBlank(message = "can't be empty")
     @Pattern(regexp = RegexpConstants.PUBLIC_TYPE_NO_PATTERN, message = "must be one of 1, 2, or 3")
     private String publicTypeNo;
+
+    @JsonIgnore
+    private OffsetDateTime createdAt = OffsetDateTime.now(ZoneOffset.UTC);
 }
