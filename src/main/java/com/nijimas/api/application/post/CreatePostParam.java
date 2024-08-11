@@ -1,5 +1,6 @@
 package com.nijimas.api.application.post;
 
+import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.constant.MessageConstants;
 import com.nijimas.api.core.constant.RegexpConstants;
 import jakarta.validation.constraints.Max;
@@ -40,7 +41,7 @@ public class CreatePostParam {
     @Size(max = 2000, message = "must be less than 2000 characters")
     private String photoUrl;
 
-    @Max(value = 99999999, message = "must be less than 100000000")
+    @Max(value = CommonConstants.MAX_EXPENSE, message = "must be less than 100000000")
     private Integer expense;
 
     private String location;

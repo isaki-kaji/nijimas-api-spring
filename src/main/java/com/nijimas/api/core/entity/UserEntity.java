@@ -10,7 +10,6 @@ import lombok.Setter;
 import java.time.OffsetDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"uid"})
 public class UserEntity {

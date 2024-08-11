@@ -1,6 +1,7 @@
 package com.nijimas.api.application.summary;
 
 import com.nijimas.api.application.post.CreatePostParam;
+import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity;
 import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
@@ -20,7 +21,7 @@ public class SummaryServiceImpl implements SummaryService {
     /**
      * ユーザが投稿したデータに基づき、支出の集計を非同期で実行します。
      *
-     * @param param　{@link CreatePostParam} オブジェクト
+     * @param param 　{@link CreatePostParam} オブジェクト
      */
     @Override
     @Async
@@ -36,7 +37,12 @@ public class SummaryServiceImpl implements SummaryService {
     private void calcMonthlySummary(CreatePostParam param) {
         var summary = new MonthlyExpenseSummaryEntity(param);
         repository.findOne(summary).ifPresentOrElse(
-                s -> repository.update(summary.addExpense(param.getExpense())),
+                s -> {
+                    if (s.getTotalExpense().equals(CommonConstants.MAX_EXPENSE)) {
+                        return;
+                    }
+                    repository.update(s.addExpense(param.getExpense()));
+                },
                 () -> repository.save(summary)
         );
     }

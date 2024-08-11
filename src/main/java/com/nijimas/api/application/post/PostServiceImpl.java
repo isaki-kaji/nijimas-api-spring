@@ -7,6 +7,7 @@ import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.repository.PostSubcategoryRepository;
 import com.nijimas.api.core.repository.SubCategoryRepository;
 import com.nijimas.api.core.service.PostService;
+import com.nijimas.api.core.service.SummaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final SubCategoryRepository subCategoryRepository;
     private final PostSubcategoryRepository postSubcategoryRepository;
+    private final SummaryService summaryService;
 
     @Override
     @Transactional
@@ -28,13 +30,10 @@ public class PostServiceImpl implements PostService {
         PostEntity post = new PostEntity(param);
         postRepository.save(post);
 
-        // subCategory2のみ設定されていた場合はsubCategory2がsubCategory2として登録される
-//        if (param.getSubCategory1() == null && param.getSubCategory2() != null){
-//            handleSubCategory(post.getPostId(), param.getSubCategory2(), "1");
-//            return;
-//        }
         handleSubCategory(post.getPostId(), param.getSubCategory1(), "1");
         handleSubCategory(post.getPostId(), param.getSubCategory2(), "2");
+
+        summaryService.execute(param);
     }
 
     @Override

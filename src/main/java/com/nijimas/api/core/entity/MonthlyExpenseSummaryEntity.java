@@ -1,14 +1,13 @@
 package com.nijimas.api.core.entity;
 
 import com.nijimas.api.application.post.CreatePostParam;
+import com.nijimas.api.core.constant.CommonConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.ZonedDateTime;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class MonthlyExpenseSummaryEntity {
     private String uid;
@@ -26,13 +25,10 @@ public class MonthlyExpenseSummaryEntity {
         this.totalExpense = param.getExpense();
     }
 
-    public MonthlyExpenseSummaryEntity addExpense(Integer expense) {
+    public MonthlyExpenseSummaryEntity addExpense(Integer otherExpense) {
+        Integer newExpense = Math.min(
+                this.totalExpense + otherExpense, CommonConstants.MAX_EXPENSE);
         return new MonthlyExpenseSummaryEntity(
-                this.uid,
-                this.year,
-                this.month,
-                this.mainCategory,
-                this.totalExpense + expense
-        );
+                uid, year, month, mainCategory, newExpense);
     }
 }

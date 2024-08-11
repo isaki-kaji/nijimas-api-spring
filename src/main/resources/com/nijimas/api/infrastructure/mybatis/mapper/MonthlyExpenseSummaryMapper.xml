@@ -12,7 +12,7 @@
         #{year},
         #{month},
         #{mainCategory},
-        #{totalExpense},
+        #{totalExpense}
         )
     </insert>
 
