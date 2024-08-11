@@ -8,6 +8,7 @@ import com.nijimas.api.core.entity.SubCategoryEntity;
 import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.repository.PostSubcategoryRepository;
 import com.nijimas.api.core.repository.SubCategoryRepository;
+import com.nijimas.api.core.service.SummaryService;
 import com.nijimas.api.util.CommonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +39,9 @@ class PostServiceImplTest {
     @Mock
     PostSubcategoryRepository postSubcategoryRepository;
 
+    @Mock
+    SummaryService summaryService;
+
     String ownUid;
     String subCategory1Input;
     String subCategory2Input;
@@ -60,6 +64,7 @@ class PostServiceImplTest {
         postSubCategoryCaptor = ArgumentCaptor.forClass(PostSubcategoryEntity.class);
 
         doNothing().when(postRepository).save(postCaptor.capture());
+        doNothing().when(summaryService).execute(any());
     }
 
 
