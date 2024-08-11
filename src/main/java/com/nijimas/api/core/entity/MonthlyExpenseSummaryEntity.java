@@ -5,8 +5,6 @@ import com.nijimas.api.core.constant.CommonConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.ZonedDateTime;
-
 @Getter
 @AllArgsConstructor
 public class MonthlyExpenseSummaryEntity {
@@ -17,10 +15,9 @@ public class MonthlyExpenseSummaryEntity {
     private Integer totalExpense;
 
     public MonthlyExpenseSummaryEntity(CreatePostParam param) {
-        ZonedDateTime currentDateTime = ZonedDateTime.now();
         this.uid = param.getUid();
-        this.year = currentDateTime.getYear();
-        this.month = currentDateTime.getMonthValue();
+        this.year = param.getCreatedAt().getYear();
+        this.month = param.getCreatedAt().getMonthValue();
         this.mainCategory = param.getMainCategory();
         this.totalExpense = param.getExpense();
     }

@@ -31,5 +31,6 @@ public class PostEntity {
         this.expense = param.getExpense();
         this.location = param.getLocation();
         this.publicTypeNo = param.getPublicTypeNo();
+        this.createdAt = param.getCreatedAt();
     }
 }

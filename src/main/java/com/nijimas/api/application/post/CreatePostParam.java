@@ -1,5 +1,6 @@
 package com.nijimas.api.application.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.constant.MessageConstants;
 import com.nijimas.api.core.constant.RegexpConstants;
@@ -11,6 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Getter
 @Setter
@@ -49,4 +53,7 @@ public class CreatePostParam {
     @NotBlank(message = "can't be empty")
     @Pattern(regexp = RegexpConstants.PUBLIC_TYPE_NO_PATTERN, message = "must be one of 1, 2, or 3")
     private String publicTypeNo;
+
+    @JsonIgnore
+    private OffsetDateTime createdAt = OffsetDateTime.now(ZoneOffset.UTC);
 }

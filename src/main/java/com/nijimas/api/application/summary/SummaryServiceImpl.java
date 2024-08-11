@@ -3,11 +3,16 @@ package com.nijimas.api.application.summary;
 import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity;
+import com.nijimas.api.core.entity.SubCategoryExpenseSummaryEntity;
 import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
+import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * 支出の集計を行うサービスクラスです。
@@ -16,7 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SummaryServiceImpl implements SummaryService {
-    final private MonthlyExpenseSummaryRepository repository;
+    final private MonthlyExpenseSummaryRepository monthlySummaryRepository;
+    final private SubCategoryExpenseSummaryRepository subCategorySummaryRepository;
 
     /**
      * ユーザが投稿したデータに基づき、支出の集計を非同期で実行します。
@@ -27,23 +33,49 @@ public class SummaryServiceImpl implements SummaryService {
     @Async
     public void execute(CreatePostParam param) {
         calcMonthlySummary(param);
+        calcSubCategorySummary(param);
     }
 
     /**
-     * 月次支出サマリーを計算し、必要に応じて更新または新規作成します。
+     * 月次支出サマリを計算し、必要に応じて更新または新規作成します。
      *
      * @param param {@link CreatePostParam} オブジェクト
      */
     private void calcMonthlySummary(CreatePostParam param) {
         var summary = new MonthlyExpenseSummaryEntity(param);
-        repository.findOne(summary).ifPresentOrElse(
+        monthlySummaryRepository.findOne(summary).ifPresentOrElse(
                 s -> {
                     if (s.getTotalExpense().equals(CommonConstants.MAX_EXPENSE)) {
                         return;
                     }
-                    repository.update(s.addExpense(param.getExpense()));
+                    monthlySummaryRepository.update(s.addExpense(param.getExpense()));
                 },
-                () -> repository.save(summary)
+                () -> monthlySummaryRepository.save(summary)
         );
+    }
+
+    /**
+     * サブカテゴリごとの月次支出サマリを計算し、必要に応じて更新または新規作成します。
+     *
+     * @param param {@link CreatePostParam} オブジェクト
+     */
+    private void calcSubCategorySummary(CreatePostParam param) {
+        var subCategories = Stream.of(param.getSubCategory1(), param.getSubCategory2())
+                .filter(Objects::nonNull)
+                .toList();
+
+        for (String subCategory : subCategories) {
+            var summary = new SubCategoryExpenseSummaryEntity(param);
+            summary.setSubCategory(subCategory);
+            subCategorySummaryRepository.findOne(summary).ifPresentOrElse(
+                    s -> {
+                        if (s.getTotalExpense().equals(CommonConstants.MAX_EXPENSE)) {
+                            return;
+                        }
+                        subCategorySummaryRepository.update(s.addExpense(param.getExpense()));
+                    },
+                    () -> subCategorySummaryRepository.save(summary)
+            );
+        }
     }
 }
