@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.DailyActivitySummaryMapper">
+
+    <insert id="insert" parameterType="com.nijimas.api.core.entity.DailyActivitySummaryEntity">
+        INSERT INTO "daily_activity_summary" (uid, year, month, day, number, amount)
+        VALUES (
+        #{uid},
+        #{year},
+        #{month},
+        #{day},
+        #{number},
+        #{amount}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.nijimas.api.core.entity.DailyActivitySummaryEntity">
+        UPDATE "daily_activity_summary" SET
+        number = #{number},
+        amount = #{amount}
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND day = #{day}
+    </update>
+
+    <select id="findOne" resultType="com.nijimas.api.core.entity.DailyActivitySummaryEntity">
+        SELECT * FROM "daily_activity_summary"
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND day = #{day}
+    </select>
+</mapper>
