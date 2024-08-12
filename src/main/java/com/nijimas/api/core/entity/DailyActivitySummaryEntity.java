@@ -20,6 +20,7 @@ public class DailyActivitySummaryEntity {
         this.year = param.getCreatedAt().getYear();
         this.month = param.getCreatedAt().getMonthValue();
         this.day = param.getCreatedAt().getDayOfMonth();
+        this.number = 1;
         this.amount = param.getExpense();
     }
 

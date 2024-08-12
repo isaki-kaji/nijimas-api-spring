@@ -2,8 +2,10 @@ package com.nijimas.api.application.summary;
 
 import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.core.constant.CommonConstants;
+import com.nijimas.api.core.entity.DailyActivitySummaryEntity;
 import com.nijimas.api.core.entity.MonthlySummaryEntity;
 import com.nijimas.api.core.entity.SubCategorySummaryEntity;
+import com.nijimas.api.core.repository.DailyActivitySummaryRepository;
 import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
 import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
@@ -23,6 +25,7 @@ import java.util.stream.Stream;
 public class SummaryServiceImpl implements SummaryService {
     final private MonthlyExpenseSummaryRepository monthlySummaryRepository;
     final private SubCategoryExpenseSummaryRepository subCategorySummaryRepository;
+    final private DailyActivitySummaryRepository dailyActivitySummaryRepository;
 
     /**
      * ユーザが投稿したデータに基づき、支出の集計を非同期で実行します。
@@ -34,10 +37,11 @@ public class SummaryServiceImpl implements SummaryService {
     public void execute(CreatePostParam param) {
         calcMonthlySummary(param);
         calcSubCategorySummary(param);
+        calcDailyActivitySummary(param);
     }
 
     /**
-     * 月次支出サマリを計算し、必要に応じて更新または新規作成します。
+     * 費目ごとの月次支出を計算し、集計結果を更新または新規作成します。
      *
      * @param param {@link CreatePostParam} オブジェクト
      */
@@ -55,7 +59,7 @@ public class SummaryServiceImpl implements SummaryService {
     }
 
     /**
-     * サブカテゴリごとの月次支出サマリを計算し、必要に応じて更新または新規作成します。
+     * サブカテゴリごとの月次支出を計算し、集計結果を更新または新規作成します。
      *
      * @param param {@link CreatePostParam} オブジェクト
      */
@@ -77,5 +81,23 @@ public class SummaryServiceImpl implements SummaryService {
                     () -> subCategorySummaryRepository.save(summary)
             );
         }
+    }
+
+    /**
+     * 日別の投稿数と支出を計算し、集計結果を更新または新規作成します。
+     *
+     * @param param {@link CreatePostParam} オブジェクト
+     */
+    private void calcDailyActivitySummary(CreatePostParam param){
+        var summary = new DailyActivitySummaryEntity(param);
+        dailyActivitySummaryRepository.findOne(summary).ifPresentOrElse(
+                s -> {
+                    if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
+                        return;
+                    }
+                    dailyActivitySummaryRepository.update(s.update(param.getExpense()));
+                },
+                () -> dailyActivitySummaryRepository.save(summary)
+        );
     }
 }
