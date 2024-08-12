@@ -7,25 +7,25 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MonthlyExpenseSummaryEntity {
+public class MonthlySummaryEntity {
     private String uid;
     private Integer year;
     private Integer month;
     private String mainCategory;
-    private Integer totalExpense;
+    private Integer amount;
 
-    public MonthlyExpenseSummaryEntity(CreatePostParam param) {
+    public MonthlySummaryEntity(CreatePostParam param) {
         this.uid = param.getUid();
         this.year = param.getCreatedAt().getYear();
         this.month = param.getCreatedAt().getMonthValue();
         this.mainCategory = param.getMainCategory();
-        this.totalExpense = param.getExpense();
+        this.amount = param.getExpense();
     }
 
-    public MonthlyExpenseSummaryEntity addExpense(Integer otherExpense) {
-        Integer newExpense = Math.min(
-                this.totalExpense + otherExpense, CommonConstants.MAX_EXPENSE);
-        return new MonthlyExpenseSummaryEntity(
-                uid, year, month, mainCategory, newExpense);
+    public MonthlySummaryEntity addExpense(Integer expense) {
+        Integer newAmount = Math.min(
+                this.amount + expense, CommonConstants.MAX_EXPENSE);
+        return new MonthlySummaryEntity(
+                uid, year, month, mainCategory, newAmount);
     }
 }

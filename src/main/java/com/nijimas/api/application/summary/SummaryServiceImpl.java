@@ -2,8 +2,8 @@ package com.nijimas.api.application.summary;
 
 import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.core.constant.CommonConstants;
-import com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity;
-import com.nijimas.api.core.entity.SubCategoryExpenseSummaryEntity;
+import com.nijimas.api.core.entity.MonthlySummaryEntity;
+import com.nijimas.api.core.entity.SubCategorySummaryEntity;
 import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
 import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
@@ -42,10 +42,10 @@ public class SummaryServiceImpl implements SummaryService {
      * @param param {@link CreatePostParam} オブジェクト
      */
     private void calcMonthlySummary(CreatePostParam param) {
-        var summary = new MonthlyExpenseSummaryEntity(param);
+        var summary = new MonthlySummaryEntity(param);
         monthlySummaryRepository.findOne(summary).ifPresentOrElse(
                 s -> {
-                    if (s.getTotalExpense().equals(CommonConstants.MAX_EXPENSE)) {
+                    if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
                         return;
                     }
                     monthlySummaryRepository.update(s.addExpense(param.getExpense()));
@@ -65,11 +65,11 @@ public class SummaryServiceImpl implements SummaryService {
                 .toList();
 
         for (String subCategory : subCategories) {
-            var summary = new SubCategoryExpenseSummaryEntity(param);
+            var summary = new SubCategorySummaryEntity(param);
             summary.setSubCategory(subCategory);
             subCategorySummaryRepository.findOne(summary).ifPresentOrElse(
                     s -> {
-                        if (s.getTotalExpense().equals(CommonConstants.MAX_EXPENSE)) {
+                        if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
                             return;
                         }
                         subCategorySummaryRepository.update(s.addExpense(param.getExpense()));

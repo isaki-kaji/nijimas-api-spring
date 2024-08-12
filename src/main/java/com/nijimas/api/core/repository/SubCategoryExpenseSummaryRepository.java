@@ -1,15 +1,14 @@
 package com.nijimas.api.core.repository;
 
-import com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity;
-import com.nijimas.api.core.entity.SubCategoryExpenseSummaryEntity;
+import com.nijimas.api.core.entity.SubCategorySummaryEntity;
 
 import java.util.Optional;
 
 public interface SubCategoryExpenseSummaryRepository {
 
-    void save(SubCategoryExpenseSummaryEntity summary);
+    void save(SubCategorySummaryEntity summary);
 
-    void update(SubCategoryExpenseSummaryEntity summary);
+    void update(SubCategorySummaryEntity summary);
 
-    Optional<SubCategoryExpenseSummaryEntity> findOne(SubCategoryExpenseSummaryEntity summary);
+    Optional<SubCategorySummaryEntity> findOne(SubCategorySummaryEntity summary);
 }

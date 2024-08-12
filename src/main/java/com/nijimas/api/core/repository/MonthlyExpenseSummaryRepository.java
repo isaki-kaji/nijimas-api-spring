@@ -1,14 +1,14 @@
 package com.nijimas.api.core.repository;
 
-import com.nijimas.api.core.entity.MonthlyExpenseSummaryEntity;
+import com.nijimas.api.core.entity.MonthlySummaryEntity;
 
 import java.util.Optional;
 
 public interface MonthlyExpenseSummaryRepository {
 
-    void save(MonthlyExpenseSummaryEntity summary);
+    void save(MonthlySummaryEntity summary);
 
-    void update(MonthlyExpenseSummaryEntity summary);
+    void update(MonthlySummaryEntity summary);
 
-    Optional<MonthlyExpenseSummaryEntity> findOne(MonthlyExpenseSummaryEntity summary);
+    Optional<MonthlySummaryEntity> findOne(MonthlySummaryEntity summary);
 }

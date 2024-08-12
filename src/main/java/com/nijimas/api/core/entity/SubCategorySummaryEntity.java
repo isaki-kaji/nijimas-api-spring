@@ -7,28 +7,28 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SubCategoryExpenseSummaryEntity {
+public class SubCategorySummaryEntity {
     private String uid;
     private Integer year;
     private Integer month;
     private String subCategory;
-    private Integer totalExpense;
+    private Integer amount;
 
-    public SubCategoryExpenseSummaryEntity(CreatePostParam param) {
+    public SubCategorySummaryEntity(CreatePostParam param) {
         this.uid = param.getUid();
         this.year = param.getCreatedAt().getYear();
         this.month = param.getCreatedAt().getMonthValue();
-        this.totalExpense = param.getExpense();
+        this.amount = param.getExpense();
     }
 
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
     }
 
-    public SubCategoryExpenseSummaryEntity addExpense(Integer otherExpense) {
-        Integer newExpense = Math.min(
-                this.totalExpense + otherExpense, CommonConstants.MAX_EXPENSE);
-        return new SubCategoryExpenseSummaryEntity(
-                uid, year, month, subCategory, newExpense);
+    public SubCategorySummaryEntity addExpense(Integer expense) {
+        Integer newAmount = Math.min(
+                this.amount + expense, CommonConstants.MAX_EXPENSE);
+        return new SubCategorySummaryEntity(
+                uid, year, month, subCategory, newAmount);
     }
 }

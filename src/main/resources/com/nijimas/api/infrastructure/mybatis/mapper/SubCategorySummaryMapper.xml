@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.SubCategorySummaryMapper">
+
+    <insert id="insert" parameterType="com.nijimas.api.core.entity.SubCategorySummaryEntity">
+        INSERT INTO "subcategory_summary" (uid, year, month, sub_category, amount)
+        VALUES (
+        #{uid},
+        #{year},
+        #{month},
+        #{subCategory},
+        #{amount}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.nijimas.api.core.entity.SubCategorySummaryEntity">
+        UPDATE "subcategory_summary" SET
+        amount = #{amount}
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND sub_category = #{subCategory}
+    </update>
+
+    <select id="findOne" resultType="com.nijimas.api.core.entity.SubCategorySummaryEntity">
+        SELECT * FROM "subcategory_summary"
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        AND sub_category = #{subCategory}
+    </select>
+</mapper>
