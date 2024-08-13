@@ -4,7 +4,7 @@ import com.nijimas.api.core.entity.SubCategorySummaryEntity;
 
 import java.util.Optional;
 
-public interface SubCategoryExpenseSummaryRepository {
+public interface SubCategorySummaryRepository {
 
     void save(SubCategorySummaryEntity summary);
 

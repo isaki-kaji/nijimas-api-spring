@@ -3,13 +3,12 @@ package com.nijimas.api.application.summary;
 import com.nijimas.api.application.post.CreatePostParam;
 import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.entity.DailyActivitySummaryEntity;
-import com.nijimas.api.core.entity.MonthlySummaryEntity;
+import com.nijimas.api.core.entity.ExpenseSummaryEntity;
 import com.nijimas.api.core.entity.SubCategorySummaryEntity;
 import com.nijimas.api.core.repository.DailyActivitySummaryRepository;
-import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
-import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
+import com.nijimas.api.core.repository.ExpenseSummaryRepository;
+import com.nijimas.api.core.repository.SubCategorySummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
-import com.nijimas.api.util.CommonUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,8 @@ import java.util.stream.Stream;
 @Service
 @AllArgsConstructor
 public class SummaryServiceImpl implements SummaryService {
-    final private MonthlyExpenseSummaryRepository monthlySummaryRepository;
-    final private SubCategoryExpenseSummaryRepository subCategorySummaryRepository;
+    final private ExpenseSummaryRepository monthlySummaryRepository;
+    final private SubCategorySummaryRepository subCategorySummaryRepository;
     final private DailyActivitySummaryRepository dailyActivitySummaryRepository;
 
     /**
@@ -47,7 +46,7 @@ public class SummaryServiceImpl implements SummaryService {
      * @param param {@link CreatePostParam} オブジェクト
      */
     private void calcMonthlySummary(CreatePostParam param) {
-        var summary = new MonthlySummaryEntity(param);
+        var summary = new ExpenseSummaryEntity(param);
         monthlySummaryRepository.findOne(summary).ifPresentOrElse(
                 s -> {
                     if (s.getAmount().compareTo(CommonConstants.MAX_EXPENSE) >= 0) {

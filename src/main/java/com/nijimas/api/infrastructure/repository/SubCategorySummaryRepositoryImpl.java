@@ -1,7 +1,7 @@
 package com.nijimas.api.infrastructure.repository;
 
 import com.nijimas.api.core.entity.SubCategorySummaryEntity;
-import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
+import com.nijimas.api.core.repository.SubCategorySummaryRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.SubCategorySummaryMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class SubCategoryExpenseSummaryRepositoryImpl implements SubCategoryExpenseSummaryRepository {
+public class SubCategorySummaryRepositoryImpl implements SubCategorySummaryRepository {
     private final SubCategorySummaryMapper mapper;
 
     @Override

@@ -9,14 +9,14 @@ import java.math.BigDecimal;
 
 @Getter
 @AllArgsConstructor
-public class MonthlySummaryEntity {
+public class ExpenseSummaryEntity {
     private String uid;
     private Integer year;
     private Integer month;
     private String mainCategory;
     private BigDecimal amount;
 
-    public MonthlySummaryEntity(CreatePostParam param) {
+    public ExpenseSummaryEntity(CreatePostParam param) {
         this.uid = param.getUid();
         this.year = param.getCreatedAt().getYear();
         this.month = param.getCreatedAt().getMonthValue();
@@ -24,9 +24,9 @@ public class MonthlySummaryEntity {
         this.amount = param.getExpense();
     }
 
-    public MonthlySummaryEntity addExpense(BigDecimal expense) {
+    public ExpenseSummaryEntity addExpense(BigDecimal expense) {
         BigDecimal newAmount = this.amount.add(expense).min(CommonConstants.MAX_EXPENSE);
-        return new MonthlySummaryEntity(
+        return new ExpenseSummaryEntity(
                 uid, year, month, mainCategory, newAmount);
     }
 }

@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.MonthlySummaryMapper">
+<mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.ExpenseSummaryMapper">
 
-    <insert id="insert" parameterType="com.nijimas.api.core.entity.MonthlySummaryEntity">
-        INSERT INTO "monthly_summary" (uid, year, month, main_category, amount)
+    <insert id="insert" parameterType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
+        INSERT INTO "expense_summary" (uid, year, month, main_category, amount)
         VALUES (
         #{uid},
         #{year},
@@ -16,8 +16,8 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.nijimas.api.core.entity.MonthlySummaryEntity">
-        UPDATE "monthly_summary" SET
+    <update id="update" parameterType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
+        UPDATE "expense_summary" SET
         amount = #{amount}
         WHERE uid = #{uid}
         AND year = #{year}
@@ -25,8 +25,8 @@
         AND main_category = #{mainCategory}
     </update>
 
-    <select id="findOne" resultType="com.nijimas.api.core.entity.MonthlySummaryEntity">
-        SELECT * FROM "monthly_summary"
+    <select id="findOne" resultType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
+        SELECT * FROM "expense_summary"
         WHERE uid = #{uid}
         AND year = #{year}
         AND month = #{month}
