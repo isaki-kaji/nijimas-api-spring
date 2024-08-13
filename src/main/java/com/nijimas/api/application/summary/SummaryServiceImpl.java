@@ -74,7 +74,7 @@ public class SummaryServiceImpl implements SummaryService {
             summary.setSubCategory(subCategory);
             subCategorySummaryRepository.findOne(summary).ifPresentOrElse(
                     s -> {
-                        if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
+                        if (s.getAmount().compareTo(CommonConstants.MAX_EXPENSE) >= 0) {
                             return;
                         }
                         subCategorySummaryRepository.update(s.addExpense(param.getExpense()));
