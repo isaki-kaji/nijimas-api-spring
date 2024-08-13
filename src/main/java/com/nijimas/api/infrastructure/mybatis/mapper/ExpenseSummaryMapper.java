@@ -1,8 +1,10 @@
 package com.nijimas.api.infrastructure.mybatis.mapper;
 
-import com.nijimas.api.core.dto.summary.ExpenseSummaryDto;
+import com.nijimas.api.core.dto.summary.CommonSummaryDto;
 import com.nijimas.api.core.entity.ExpenseSummaryEntity;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface ExpenseSummaryMapper {
@@ -13,5 +15,5 @@ public interface ExpenseSummaryMapper {
 
     ExpenseSummaryEntity findOne(ExpenseSummaryEntity summary);
 
-    ExpenseSummaryDto findByMonth(String uid, Integer year, Integer month);
+    List<CommonSummaryDto> findByMonth(String uid, Integer year, Integer month);
 }

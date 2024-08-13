@@ -3,6 +3,9 @@ package com.nijimas.api.core.dto.summary;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 @Getter
 public class MonthlySummaryResponseDto {
 
@@ -11,10 +14,10 @@ public class MonthlySummaryResponseDto {
     private Integer month;
 
     @JsonProperty("expense_summary")
-    private ExpenseSummaryDto expenseSummaryDto;
+    private Map<String, BigDecimal> commonSummaryDto;
 
     @JsonProperty("subcategory_summary")
-    private SubCategorySummaryDto subCategorySummaryDto;
+    private Map<String, BigDecimal> subCategorySummaryDto;
 
     @JsonProperty("daily_activity")
     private DailyActivitySummaryDto dailyActivitySummaryDto;
