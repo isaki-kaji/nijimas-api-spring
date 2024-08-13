@@ -5,6 +5,8 @@ import com.nijimas.api.core.constant.CommonConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 @AllArgsConstructor
 public class MonthlySummaryEntity {
@@ -12,7 +14,7 @@ public class MonthlySummaryEntity {
     private Integer year;
     private Integer month;
     private String mainCategory;
-    private Integer amount;
+    private BigDecimal amount;
 
     public MonthlySummaryEntity(CreatePostParam param) {
         this.uid = param.getUid();
@@ -22,9 +24,8 @@ public class MonthlySummaryEntity {
         this.amount = param.getExpense();
     }
 
-    public MonthlySummaryEntity addExpense(Integer expense) {
-        Integer newAmount = Math.min(
-                this.amount + expense, CommonConstants.MAX_EXPENSE);
+    public MonthlySummaryEntity addExpense(BigDecimal expense) {
+        BigDecimal newAmount = this.amount.add(expense).min(CommonConstants.MAX_EXPENSE);
         return new MonthlySummaryEntity(
                 uid, year, month, mainCategory, newAmount);
     }

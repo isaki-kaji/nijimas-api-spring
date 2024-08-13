@@ -5,6 +5,8 @@ import com.nijimas.api.core.constant.CommonConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 @AllArgsConstructor
 public class SubCategorySummaryEntity {
@@ -12,7 +14,7 @@ public class SubCategorySummaryEntity {
     private Integer year;
     private Integer month;
     private String subCategory;
-    private Integer amount;
+    private BigDecimal amount;
 
     public SubCategorySummaryEntity(CreatePostParam param) {
         this.uid = param.getUid();
@@ -25,9 +27,8 @@ public class SubCategorySummaryEntity {
         this.subCategory = subCategory;
     }
 
-    public SubCategorySummaryEntity addExpense(Integer expense) {
-        Integer newAmount = Math.min(
-                this.amount + expense, CommonConstants.MAX_EXPENSE);
+    public SubCategorySummaryEntity addExpense(BigDecimal expense) {
+        BigDecimal newAmount = this.amount.add(expense).min(CommonConstants.MAX_EXPENSE);
         return new SubCategorySummaryEntity(
                 uid, year, month, subCategory, newAmount);
     }

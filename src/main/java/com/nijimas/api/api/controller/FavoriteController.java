@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/favorite")
+@RequestMapping(path = "/favorites")
 public class FavoriteController {
 
     private final FavoriteService favoriteService;

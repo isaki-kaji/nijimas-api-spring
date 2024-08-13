@@ -9,6 +9,7 @@ import com.nijimas.api.core.repository.DailyActivitySummaryRepository;
 import com.nijimas.api.core.repository.MonthlyExpenseSummaryRepository;
 import com.nijimas.api.core.repository.SubCategoryExpenseSummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
+import com.nijimas.api.util.CommonUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class SummaryServiceImpl implements SummaryService {
         var summary = new MonthlySummaryEntity(param);
         monthlySummaryRepository.findOne(summary).ifPresentOrElse(
                 s -> {
-                    if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
+                    if (s.getAmount().compareTo(CommonConstants.MAX_EXPENSE) >= 0) {
                         return;
                     }
                     monthlySummaryRepository.update(s.addExpense(param.getExpense()));
@@ -73,7 +74,7 @@ public class SummaryServiceImpl implements SummaryService {
             summary.setSubCategory(subCategory);
             subCategorySummaryRepository.findOne(summary).ifPresentOrElse(
                     s -> {
-                        if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
+                        if (s.getAmount().compareTo(CommonConstants.MAX_EXPENSE) >= 0) {
                             return;
                         }
                         subCategorySummaryRepository.update(s.addExpense(param.getExpense()));
@@ -92,7 +93,7 @@ public class SummaryServiceImpl implements SummaryService {
         var summary = new DailyActivitySummaryEntity(param);
         dailyActivitySummaryRepository.findOne(summary).ifPresentOrElse(
                 s -> {
-                    if (s.getAmount().equals(CommonConstants.MAX_EXPENSE)) {
+                    if (s.getAmount().compareTo(CommonConstants.MAX_EXPENSE) >= 0) {
                         return;
                     }
                     dailyActivitySummaryRepository.update(s.update(param.getExpense()));

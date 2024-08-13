@@ -52,7 +52,7 @@ public class FavoriteControllerTest {
 
         // when / then
         mockMvc.perform(
-                        post("/favorite")
+                        post("/favorites")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
@@ -68,7 +68,7 @@ public class FavoriteControllerTest {
 
         // when / then
         mockMvc.perform(
-                        post("/favorite")
+                        post("/favorites")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
@@ -85,7 +85,7 @@ public class FavoriteControllerTest {
 
         // when / then
         mockMvc.perform(
-                        post("/favorite")
+                        post("/favorites")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
