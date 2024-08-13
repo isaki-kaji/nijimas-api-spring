@@ -19,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -180,7 +181,7 @@ class PostServiceImplTest {
         assertThat(post.getPostId()).isEqualTo(CommonUtil.parseUuid(param.getPostId()));
         assertThat(post.getUid()).isEqualTo(param.getUid());
         assertThat(post.getMainCategory()).isEqualTo(param.getMainCategory());
-        assertThat(post.getExpense()).isEqualTo(param.getExpense());
+        assertThat(post.getExpense().compareTo(param.getExpense())).isZero();
         assertThat(post.getPostText()).isEqualTo(param.getPostText());
         assertThat(post.getPublicTypeNo()).isEqualTo(param.getPublicTypeNo());
     }
@@ -216,7 +217,7 @@ class PostServiceImplTest {
         param.setPostId("9ad11a60-d866-e608-58f9-89e5824f8cc3");
         param.setUid("OKQchGYVq8Z6stnG6XS9YhBqWtZ2");
         param.setMainCategory("food");
-        param.setExpense(10000);
+        param.setExpense(new BigDecimal("10000"));
         param.setPostText("とてもおいしかったです。");
         param.setPublicTypeNo("1");
         return param;
