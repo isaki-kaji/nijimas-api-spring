@@ -33,10 +33,17 @@
         AND main_category = #{mainCategory}
     </select>
 
-    <select id="findByMonth" resultType="com.nijimas.api.core.dto.summary.ExpenseSummaryDto">
-        SELECT main_category, amount FROM "expense_summary"
+    <select id="findByMonth" resultMap="expenseSummaryResultMap">
+        SELECT main_category AS key, amount AS value FROM "expense_summary"
         WHERE uid = #{uid}
         AND year = #{year}
         AND month = #{month}
     </select>
+
+    <resultMap id="expenseSummaryResultMap" type="com.nijimas.api.core.dto.summary.ExpenseSummaryDto">
+        <collection property="items" ofType="java.util.Map" >
+            <result column="main_category" javaType="string" />
+            <result column="amount" javaType="java.math.BigDecimal" />
+        </collection>
+    </resultMap>
 </mapper>
