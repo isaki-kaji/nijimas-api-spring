@@ -1,6 +1,5 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.core.repository.ExpenseSummaryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

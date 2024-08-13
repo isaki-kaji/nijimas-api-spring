@@ -35,7 +35,7 @@ public class ExpenseSummaryRepositoryImpl implements ExpenseSummaryRepository {
     @Override
     public Map<String, BigDecimal> findByMonth(String uid, Integer year, Integer month) {
         List<CommonSummaryDto> results = mapper.findByMonth(uid, year, month);
-        // dtoをMapに変換
+        // dtoのリストをMapに変換
         return RepositoryUtil.toSummaryMap(results);
     }
 }
