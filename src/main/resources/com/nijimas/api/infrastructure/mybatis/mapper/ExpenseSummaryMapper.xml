@@ -32,4 +32,11 @@
         AND month = #{month}
         AND main_category = #{mainCategory}
     </select>
+
+    <select id="findByMonth" resultType="com.nijimas.api.core.dto.summary.ExpenseSummaryDto">
+        SELECT main_category, amount FROM "expense_summary"
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+    </select>
 </mapper>

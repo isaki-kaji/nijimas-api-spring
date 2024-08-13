@@ -1,5 +1,6 @@
 package com.nijimas.api.infrastructure.repository;
 
+import com.nijimas.api.core.dto.summary.ExpenseSummaryDto;
 import com.nijimas.api.core.entity.ExpenseSummaryEntity;
 import com.nijimas.api.core.repository.ExpenseSummaryRepository;
 import com.nijimas.api.infrastructure.mybatis.mapper.ExpenseSummaryMapper;
@@ -25,5 +26,10 @@ public class ExpenseSummaryRepositoryImpl implements ExpenseSummaryRepository {
     @Override
     public Optional<ExpenseSummaryEntity> findOne(ExpenseSummaryEntity summary) {
         return Optional.ofNullable(mapper.findOne(summary));
+    }
+
+    @Override
+    public Optional<ExpenseSummaryDto> findByMonth(String uid, Integer year, Integer month) {
+        return Optional.ofNullable(mapper.findByMonth(uid, year, month));
     }
 }
