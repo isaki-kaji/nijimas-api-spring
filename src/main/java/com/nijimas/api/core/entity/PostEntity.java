@@ -5,6 +5,7 @@ import com.nijimas.api.util.CommonUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class PostEntity {
     private String mainCategory;
     private String postText;
     private String photoUrl;
-    private Integer expense;
+    private BigDecimal expense;
     private String location;
     private String publicTypeNo;
     private OffsetDateTime createdAt;

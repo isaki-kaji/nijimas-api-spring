@@ -4,15 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.constant.MessageConstants;
 import com.nijimas.api.core.constant.RegexpConstants;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -45,8 +43,8 @@ public class CreatePostParam {
     @Size(max = 2000, message = "must be less than 2000 characters")
     private String photoUrl;
 
-    @Max(value = CommonConstants.MAX_EXPENSE, message = "must be less than 100000000")
-    private Integer expense;
+    @DecimalMax(value = CommonConstants.MAX_EXPENSE_STR, message = "must be less than 100000000")
+    private BigDecimal expense;
 
     private String location;
 
