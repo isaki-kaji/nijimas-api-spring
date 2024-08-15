@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 public class CommonSummaryDto {
-    private String mainCategory;
+    private String category;
     private BigDecimal amount;
 }

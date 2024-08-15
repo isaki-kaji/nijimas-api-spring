@@ -1,5 +1,6 @@
 package com.nijimas.api.api.controller;
 
+import com.nijimas.api.core.service.SummaryPresentationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping(path = "/users/me/summaries")
 public class SummaryController {
+    private final SummaryPresentationService service;
+    //未来に例外を返す
 
     @GetMapping(path = "/{year}/{month}")
     public ResponseEntity<?> getSummaryPresentationByMonth(
@@ -18,6 +21,6 @@ public class SummaryController {
             @PathVariable Integer year,
             @PathVariable Integer month
     ) {
-        return null;
+        return ResponseEntity.ok(service.findByMonth(ownUid, year, month));
     }
 }

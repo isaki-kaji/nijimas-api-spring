@@ -1,9 +1,12 @@
 package com.nijimas.api.core.dto.summary;
 
-import java.math.BigDecimal;
-import java.util.List;
+import lombok.Getter;
 
+import java.math.BigDecimal;
+
+@Getter
 public class DailyActivitySummaryDto {
-    int[] numbers;
-    List<BigDecimal> amounts;
+    int day;
+    int number;
+    BigDecimal amount;
 }
