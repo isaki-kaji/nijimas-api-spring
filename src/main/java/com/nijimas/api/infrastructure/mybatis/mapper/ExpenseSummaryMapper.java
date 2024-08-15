@@ -1,19 +1,19 @@
 package com.nijimas.api.infrastructure.mybatis.mapper;
 
 import com.nijimas.api.core.dto.summary.CommonSummaryDto;
-import com.nijimas.api.core.entity.SubCategorySummaryEntity;
+import com.nijimas.api.core.entity.ExpenseSummaryEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface SubCategorySummaryMapper {
+public interface ExpenseSummaryMapper {
 
-    void insert(SubCategorySummaryEntity summary);
+    void insert(ExpenseSummaryEntity summary);
 
-    void update(SubCategorySummaryEntity summary);
+    void update(ExpenseSummaryEntity summary);
 
-    SubCategorySummaryEntity findOne(SubCategorySummaryEntity summary);
+    ExpenseSummaryEntity findOne(ExpenseSummaryEntity summary);
 
     List<CommonSummaryDto> findByMonth(String uid, Integer year, Integer month);
 }

@@ -34,4 +34,13 @@
         AND month = #{month}
         AND day = #{day}
     </select>
+
+    <select id="findByMonth" resultType="com.nijimas.api.core.dto.summary.DailyActivitySummaryDto">
+        SELECT day, number, amount
+        FROM "daily_activity_summary"
+        WHERE uid = #{uid}
+        AND year = #{year}
+        AND month = #{month}
+        ORDER BY day ASC;
+    </select>
 </mapper>

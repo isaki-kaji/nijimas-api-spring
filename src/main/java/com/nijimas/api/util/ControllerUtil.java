@@ -7,7 +7,7 @@ import java.net.URI;
 
 public class ControllerUtil {
 
-    // インスタンス化でき何ようにしている
+    // インスタンス化できないようにしている
     private ControllerUtil() {
         throw new AssertionError();
     }
