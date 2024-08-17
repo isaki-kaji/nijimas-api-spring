@@ -105,9 +105,15 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
-                    {
-                        "message": "Field 'username' must be between 2 and 14 characters long (rejected value: kkkkkkkkkkkkkkk)"
-                    }
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "username",
+                                        "message": "username must be between 2 and 14 characters long"
+                                    }
+                                ]
+                            }
                 """));
     }
 
@@ -132,9 +138,15 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
-                    {
-                        "message": "Field 'country_code' must be 2 characters long (rejected value: JPN)"
-                    }
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "country_code",
+                                        "message": "country_code must be 2 characters long"
+                                    }
+                                ]
+                            }
                 """));
     }
 
@@ -158,8 +170,21 @@ public class UserControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.message").value(containsString("Field 'country_code' must be 2 characters long")))
-                .andExpect(jsonPath("$.message").value(containsString("Field 'username' must be between 2 and 14 characters long")));
+                .andExpect(content().json("""
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "username",
+                                        "message": "username must be between 2 and 14 characters long"
+                                    },
+                                    {
+                                        "source": "country_code",
+                                        "message": "country_code must be 2 characters long"
+                                    }
+                                ]
+                            }
+                """));
     }
 
     @Test

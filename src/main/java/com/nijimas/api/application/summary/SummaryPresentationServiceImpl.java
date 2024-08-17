@@ -23,6 +23,7 @@ public class SummaryPresentationServiceImpl implements SummaryPresentationServic
     private final SubCategorySummaryRepository subCategorySummaryRepository;
     private final DailyActivitySummaryRepository dailyActivitySummaryRepository;
 
+    // createActivityListが2つのListを返すために一時的に利用されるレコード
     record Activities(List<Integer> numbers, List<BigDecimal> amounts) {
     }
 

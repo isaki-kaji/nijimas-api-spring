@@ -86,7 +86,17 @@ public class PostControllerTest {
                                 .content(createRequestBody)
                 )
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(containsString("9ad11a60-d866-e608-58f9-89e5824f8cc31")));
+                .andExpect(content().json("""
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "post_id",
+                                        "message": "post_id must be a valid UUID"
+                                    }
+                                ]
+                            }
+                        """));
     }
 
     @Test
@@ -115,10 +125,16 @@ public class PostControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("""
-                    {
-                        "message": "Field 'main_category' must be one of {food,hobbies,fashion,goods,essentials,travel,entertainment,transport,other} (rejected value: game)"
-                    }
-                """));
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "main_category",
+                                        "message": "main_category must be one of {food,hobbies,fashion,goods,essentials,travel,entertainment,transport,other}"
+                                    }
+                                ]
+                            }
+                        """));
     }
 
     @Test
@@ -147,9 +163,15 @@ public class PostControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("""
-                    {
-                        "message": "Field 'public_type_no' must be one of 1, 2, or 3 (rejected value: 0)"
-                    }
+                            {
+                                "message": "Invalid request",
+                                "errors": [
+                                    {
+                                        "source": "public_type_no",
+                                        "message": "public_type_no must be one of 1, 2, or 3"
+                                    }
+                                ]
+                            }
                 """));;
     }
 }
