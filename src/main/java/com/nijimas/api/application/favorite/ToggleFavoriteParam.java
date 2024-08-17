@@ -14,9 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ToggleFavoriteParam {
 
-    @NotBlank(message = "can't be empty")
+    @NotBlank(message = "post_id is mandatory")
     @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")
     private String postId;
-
-    private String uid;
 }

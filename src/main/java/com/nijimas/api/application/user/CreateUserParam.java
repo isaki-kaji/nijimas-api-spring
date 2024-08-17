@@ -16,10 +16,10 @@ public class CreateUserParam {
 
     private String uid;
 
-    @NotBlank(message = "can't be empty")
+    @NotBlank(message = "uid is mandatory")
     @Size(min = 2, max = 14, message = "must be between 2 and 14 characters long")
     private String username;
 
-    @Size(min = 2, max = 2, message = "must be 2 characters long")
+    @Size(min = 2, max = 2, message = "country_code must be 2 characters long")
     private String countryCode;
 }

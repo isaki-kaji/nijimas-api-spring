@@ -13,18 +13,16 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateUserParam {
 
-    private String uid;
-
-    @NotBlank(message = "can't be empty")
-    @Size(min = 2, max = 14, message = "must be between 2 and 14 characters long")
+    @NotBlank(message = "username is mandatory")
+    @Size(min = 2, max = 14, message = "username must be between 2 and 14 characters long")
     private String username;
 
-    @Size(min = 2, max = 2, message = "must be 2 characters long")
+    @Size(min = 2, max = 2, message = "country_code must be 2 characters long")
     private String countryCode;
 
-    @Size(max = 200, message = "must be 200 characters or less")
+    @Size(max = 200, message = "self_intro must be 200 characters or less")
     private String selfIntro;
 
-    @Size(max = 2000, message = "must be 2000 characters or less")
+    @Size(max = 2000, message = "profile_image_url must be 2000 characters or less")
     private String profileImageUrl;
 }
