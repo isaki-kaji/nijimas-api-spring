@@ -1,5 +1,6 @@
 package com.nijimas.api.application.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateUserParam {
 
+    @JsonIgnore
     private String uid;
 
     @NotBlank(message = "uid is mandatory")

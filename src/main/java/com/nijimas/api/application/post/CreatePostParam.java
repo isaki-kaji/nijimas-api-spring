@@ -24,6 +24,7 @@ public class CreatePostParam {
     @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")
     private String postId;
 
+    @JsonIgnore
     private String uid;
 
     @NotBlank(message = "main_category is mandatory")

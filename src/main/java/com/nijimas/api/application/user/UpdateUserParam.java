@@ -1,5 +1,6 @@
 package com.nijimas.api.application.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateUserParam {
+
+    @JsonIgnore
+    private String uid;
 
     @NotBlank(message = "username is mandatory")
     @Size(min = 2, max = 14, message = "username must be between 2 and 14 characters long")
