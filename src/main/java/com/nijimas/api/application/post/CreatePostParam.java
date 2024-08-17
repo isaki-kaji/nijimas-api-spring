@@ -21,7 +21,7 @@ import java.time.ZoneOffset;
 public class CreatePostParam {
 
     @NotBlank(message = "post_id is mandatory")
-    @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "must be a valid UUID")
+    @Pattern(regexp = RegexpConstants.UUID_PATTERN, message = "post_id must be a valid UUID")
     private String postId;
 
     @JsonIgnore
