@@ -14,12 +14,11 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/posts")
 public class PostController {
 
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping(path = "/posts")
     public ResponseEntity<?> registerPost(
             @RequestBody @Valid CreatePostParam param,
             @RequestAttribute("ownUid") String ownUid) {
@@ -29,8 +28,15 @@ public class PostController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping(params = "uid")
-    public ResponseEntity<?> getPostsByUid(@RequestParam String uid) {
+    @GetMapping(path = "/me/posts")
+    public ResponseEntity<?> getOwnPosts(
+            @RequestAttribute("ownUid") String ownUid) {
+        List<PostDto> posts = postService.findByUid(ownUid);
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping(path = "/users/{uid}/posts")
+    public ResponseEntity<?> getPostsByUid(@PathVariable("uid") String uid) {
         List<PostDto> posts = postService.findByUid(uid);
         return ResponseEntity.ok(posts);
     }
