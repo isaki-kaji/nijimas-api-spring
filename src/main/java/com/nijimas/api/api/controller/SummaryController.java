@@ -14,9 +14,11 @@ import java.time.YearMonth;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/users/me/summaries")
+@RequestMapping(path = "/me/summaries")
 public class SummaryController {
     private final SummaryPresentationService service;
+
+    private static final int MINIMUM_YEAR = 2024;
 
     @GetMapping(path = "/{year}/{month}")
     public ResponseEntity<?> getSummaryPresentationByMonth(
@@ -24,7 +26,7 @@ public class SummaryController {
             @PathVariable int year,
             @PathVariable int month
     ) {
-        if (year < 2024) {
+        if (year < MINIMUM_YEAR) {
             return ResponseEntity.badRequest().body(new ApiErrorResponse(MessageConstants.YEAR_OLD_INVALID));
         }
 
