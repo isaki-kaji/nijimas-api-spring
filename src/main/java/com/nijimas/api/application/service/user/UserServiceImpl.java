@@ -1,4 +1,4 @@
-package com.nijimas.api.application.user;
+package com.nijimas.api.application.service.user;
 
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;

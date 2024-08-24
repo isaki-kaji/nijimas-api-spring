@@ -1,5 +1,7 @@
-package com.nijimas.api.application.summary;
+package com.nijimas.api.application.service.summary;
 
+import com.nijimas.api.application.logic.SummaryCalculator;
+import com.nijimas.api.core.dto.summary.CalculatedSummaryDto;
 import com.nijimas.api.core.dto.summary.DailyActivitySummaryDto;
 import com.nijimas.api.core.dto.summary.MonthlySummaryResponseDto;
 import com.nijimas.api.core.repository.DailyActivitySummaryRepository;
@@ -22,17 +24,26 @@ public class SummaryPresentationServiceImpl implements SummaryPresentationServic
     private final ExpenseSummaryRepository expenseSummaryRepository;
     private final SubCategorySummaryRepository subCategorySummaryRepository;
     private final DailyActivitySummaryRepository dailyActivitySummaryRepository;
+    private final SummaryCalculator calculator;
 
     // createActivityListが2つのListを返すために一時的に利用されるレコード
     record Activities(List<Integer> numbers, List<BigDecimal> amounts) {
     }
 
     public MonthlySummaryResponseDto findByMonth(String uid, Integer year, Integer month) {
+
+
         final var expenseSummary = expenseSummaryRepository.findByMonth(uid, year, month);
+        final var calculatedExpenseSummary =
+                expenseSummary.isEmpty() ? new HashMap<String, CalculatedSummaryDto>() : calculator.calcSummary(expenseSummary);
+
         final var subCategorySummary = subCategorySummaryRepository.findByMonth(uid, year, month);
+        final var calculatedSubcategorySummary =
+                subCategorySummary.isEmpty() ? new HashMap<String, CalculatedSummaryDto>() : calculator.calcSummary(subCategorySummary);
+
         final var activities = createActivityList(year, month, dailyActivitySummaryRepository.findByMonth(uid, year, month));
         return new MonthlySummaryResponseDto(
-                uid, year, month, expenseSummary, subCategorySummary, activities.numbers, activities.amounts);
+                uid, year, month, calculatedExpenseSummary, calculatedSubcategorySummary, activities.numbers, activities.amounts);
     }
 
     private Activities createActivityList(Integer year, Integer month, List<DailyActivitySummaryDto> activities) {

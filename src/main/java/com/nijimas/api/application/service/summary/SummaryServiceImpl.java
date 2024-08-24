@@ -1,6 +1,6 @@
-package com.nijimas.api.application.summary;
+package com.nijimas.api.application.service.summary;
 
-import com.nijimas.api.application.post.CreatePostParam;
+import com.nijimas.api.application.service.post.CreatePostParam;
 import com.nijimas.api.core.constant.CommonConstants;
 import com.nijimas.api.core.entity.DailyActivitySummaryEntity;
 import com.nijimas.api.core.entity.ExpenseSummaryEntity;

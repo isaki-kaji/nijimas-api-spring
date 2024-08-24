@@ -1,4 +1,4 @@
-package com.nijimas.api.application.favorite;
+package com.nijimas.api.application.service.favorite;
 
 import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.entity.FavoriteEntity;

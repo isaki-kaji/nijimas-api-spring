@@ -1,11 +1,10 @@
 package com.nijimas.api.core.entity;
 
-import com.nijimas.api.application.user.CreateUserParam;
-import com.nijimas.api.application.user.UpdateUserParam;
+import com.nijimas.api.application.service.user.CreateUserParam;
+import com.nijimas.api.application.service.user.UpdateUserParam;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.OffsetDateTime;
 

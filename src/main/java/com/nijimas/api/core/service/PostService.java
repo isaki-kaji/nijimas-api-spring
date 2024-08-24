@@ -1,6 +1,6 @@
 package com.nijimas.api.core.service;
 
-import com.nijimas.api.application.post.CreatePostParam;
+import com.nijimas.api.application.service.post.CreatePostParam;
 import com.nijimas.api.core.dto.PostDto;
 
 import java.util.List;

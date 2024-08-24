@@ -1,7 +1,7 @@
 package com.nijimas.api.application.service;
 
-import com.nijimas.api.application.post.CreatePostParam;
-import com.nijimas.api.application.post.PostServiceImpl;
+import com.nijimas.api.application.service.post.CreatePostParam;
+import com.nijimas.api.application.service.post.PostServiceImpl;
 import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.entity.PostSubcategoryEntity;
 import com.nijimas.api.core.entity.SubCategoryEntity;
