@@ -1,4 +1,4 @@
-package com.nijimas.api.application.post;
+package com.nijimas.api.application.service.post;
 
 import com.nijimas.api.core.dto.PostDto;
 import com.nijimas.api.core.entity.PostEntity;

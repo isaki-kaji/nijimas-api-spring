@@ -1,4 +1,4 @@
-package com.nijimas.api.application.favorite;
+package com.nijimas.api.application.service.favorite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nijimas.api.core.constant.RegexpConstants;

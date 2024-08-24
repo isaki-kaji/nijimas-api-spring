@@ -1,4 +1,4 @@
-package com.nijimas.api.application.post;
+package com.nijimas.api.application.service.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nijimas.api.core.constant.CommonConstants;

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Getter
 public class DailyActivitySummaryDto {
-    int day;
-    int number;
-    BigDecimal amount;
+    private int day;
+    private int number;
+    private BigDecimal amount;
 }

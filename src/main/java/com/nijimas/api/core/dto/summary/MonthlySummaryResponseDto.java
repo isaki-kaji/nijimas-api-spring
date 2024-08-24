@@ -14,8 +14,8 @@ public class MonthlySummaryResponseDto {
     private String uid;
     private Integer year;
     private Integer month;
-    private Map<String, BigDecimal> expenseSummary;
-    private Map<String, BigDecimal> subcategorySummary;
+    private Map<String, CalculatedSummaryDto> expenseSummary;
+    private Map<String, CalculatedSummaryDto> subcategorySummary;
     private List<Integer> dailyNumbers;
     private List<BigDecimal> dailyAmounts;
 }

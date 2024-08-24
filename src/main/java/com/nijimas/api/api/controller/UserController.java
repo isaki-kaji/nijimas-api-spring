@@ -1,7 +1,7 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.application.user.CreateUserParam;
-import com.nijimas.api.application.user.UpdateUserParam;
+import com.nijimas.api.application.service.user.CreateUserParam;
+import com.nijimas.api.application.service.user.UpdateUserParam;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.user.UserAlreadyExistsException;
 import com.nijimas.api.core.exception.user.UserNotFoundException;

@@ -1,6 +1,6 @@
 package com.nijimas.api.core.entity;
 
-import com.nijimas.api.application.post.CreatePostParam;
+import com.nijimas.api.application.service.post.CreatePostParam;
 import com.nijimas.api.util.CommonUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.nijimas.api.application.user;
+package com.nijimas.api.application.service.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;

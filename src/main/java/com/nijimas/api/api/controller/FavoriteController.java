@@ -1,6 +1,6 @@
 package com.nijimas.api.api.controller;
 
-import com.nijimas.api.application.favorite.ToggleFavoriteParam;
+import com.nijimas.api.application.service.favorite.ToggleFavoriteParam;
 import com.nijimas.api.core.constant.FavoriteStatus;
 import com.nijimas.api.core.exception.ApiErrorResponse;
 import com.nijimas.api.core.exception.post.PostNotFoundException;
