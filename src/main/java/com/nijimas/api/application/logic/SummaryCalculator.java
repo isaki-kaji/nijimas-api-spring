@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class SummaryCalculator {
 
     /**
-     * 支出の合計を計算し、各カテゴリの支出割合を計算します。
+     * 各カテゴリの支出割合を計算します。
      * その後、割合が0.1%未満のカテゴリの割合を調整し、
      * 合計が100%になるように最も高い割合を持つカテゴリの割合を調整します。
      *
@@ -52,7 +52,8 @@ public class SummaryCalculator {
     }
 
     /**
-     * 各カテゴリの支出金額に基づき、パーセンテージを計算します。
+     * 各カテゴリの支出金額に基づき、割合を計算します。
+     * 合計支出が0であるカテゴリは除外します。
      *
      * @param summary カテゴリごとの支出金額を保持するマップ
      * @param totalAmount 支出の合計金額
