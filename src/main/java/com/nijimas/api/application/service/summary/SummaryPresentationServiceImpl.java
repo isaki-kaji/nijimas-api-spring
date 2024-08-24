@@ -17,6 +17,10 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * ユーザーの支出データを集計し、月次のサマリー情報を提供するサービスの実装クラスです。
+ * メインカテゴリ別、サブカテゴリ別、日次のアクティビティに基づいた集計を行います。
+ */
 @Service
 @AllArgsConstructor
 public class SummaryPresentationServiceImpl implements SummaryPresentationService {
@@ -26,12 +30,28 @@ public class SummaryPresentationServiceImpl implements SummaryPresentationServic
     private final DailyActivitySummaryRepository dailyActivitySummaryRepository;
     private final SummaryCalculator calculator;
 
-    // createActivityListが2つのListを返すために一時的に利用されるレコード
+    /**
+     * 複数のリストを一時的に保持するための内部レコードクラスです。
+     * 主に日次のアクティビティデータの集計結果を保持します。
+     *
+     * @param numbers 日ごとのアクティビティ数のリスト
+     * @param amounts 日ごとの支出金額のリスト
+     */
     record Activities(List<Integer> numbers, List<BigDecimal> amounts) {
     }
 
+    /**
+     * 指定されたユーザーID、年、月に基づいて月次のサマリー情報を取得します。
+     * メインカテゴリ別、サブカテゴリ別、日次のアクティビティに基づいて集計し、
+     * それぞれのサマリーデータを {@link MonthlySummaryResponseDto} に格納して返します。
+     *
+     * @param uid   ユーザーID
+     * @param year  対象年
+     * @param month 対象月
+     * @return 指定された年月のサマリー情報を格納した {@link MonthlySummaryResponseDto}
+     */
+    @Override
     public MonthlySummaryResponseDto findByMonth(String uid, Integer year, Integer month) {
-
 
         final var expenseSummary = expenseSummaryRepository.findByMonth(uid, year, month);
         final var calculatedExpenseSummary =
@@ -46,6 +66,15 @@ public class SummaryPresentationServiceImpl implements SummaryPresentationServic
                 uid, year, month, calculatedExpenseSummary, calculatedSubcategorySummary, activities.numbers, activities.amounts);
     }
 
+    /**
+     * 指定された年月の日次アクティビティのリストから、日ごとのアクティビティ数と支出金額を集計します。
+     * 日付に基づいてリストを初期化し、日ごとのデータをセットします。
+     *
+     * @param year      対象年
+     * @param month     対象月
+     * @param activities 日次アクティビティのリスト
+     * @return 集計結果を保持する {@link Activities} インスタンス
+     */
     private Activities createActivityList(Integer year, Integer month, List<DailyActivitySummaryDto> activities) {
 
         final int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
@@ -67,3 +96,4 @@ public class SummaryPresentationServiceImpl implements SummaryPresentationServic
         return new Activities(numbers, amounts);
     }
 }
+
