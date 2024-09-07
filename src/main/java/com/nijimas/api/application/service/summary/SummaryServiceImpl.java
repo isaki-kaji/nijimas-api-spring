@@ -10,8 +10,10 @@ import com.nijimas.api.core.repository.ExpenseSummaryRepository;
 import com.nijimas.api.core.repository.SubCategorySummaryRepository;
 import com.nijimas.api.core.service.SummaryService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -34,10 +36,19 @@ public class SummaryServiceImpl implements SummaryService {
      */
     @Override
     @Async
+    @Transactional
     public void execute(CreatePostParam param) {
-        calcMonthlySummary(param);
-        calcSubCategorySummary(param);
-        calcDailyActivitySummary(param);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+        try {
+            calcMonthlySummary(param);
+            calcSubCategorySummary(param);
+            calcDailyActivitySummary(param);
+        } catch (DataAccessException e) {
+            //　楽観的ロック失敗の再計算。
+        }
     }
 
     /**
