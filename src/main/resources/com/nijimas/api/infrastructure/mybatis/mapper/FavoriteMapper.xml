@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.FavoriteMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.FavoriteEntity">
-        insert into "favorite" (post_id, uid)
+        insert into "favorites" (post_id, uid)
         values (
         #{postId},
         #{uid}
@@ -15,12 +15,12 @@
 
     <select id="existsById" resultType="java.lang.Integer" parameterType="com.nijimas.api.core.entity.FavoriteEntity">
         SELECT 1
-        FROM post
+        FROM "favorites"
         WHERE post_id = #{postId} and uid = #{uid}
     </select>
 
     <delete id="delete" parameterType="com.nijimas.api.core.entity.FavoriteEntity">
-        delete from "favorite"
+        delete from "favorites"
         where post_id = #{postId} and uid = #{uid}
     </delete>
 </mapper>

@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.PostEntity">
-        insert into "post" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no, created_at)
+        insert into "posts" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no, created_at)
         values (
         #{postId},
         #{uid},
@@ -22,7 +22,7 @@
 
     <select id="existsById" resultType="java.lang.Integer">
         SELECT 1
-        FROM post
+        FROM "posts"
         WHERE post_id = #{postId}
     </select>
 
@@ -41,11 +41,11 @@
         p.location,
         p.public_type_no,
         p.created_at
-        FROM "post" p
-        JOIN "user" u ON p.uid = u.uid
-        LEFT JOIN "post_subcategory" ps1
+        FROM "posts" p
+        JOIN "users" u ON p.uid = u.uid
+        LEFT JOIN "post_subcategories" ps1
         ON p.post_id = ps1.post_id AND ps1.subcategory_no = '1'
-        LEFT JOIN "post_subcategory" ps2
+        LEFT JOIN "post_subcategories" ps2
         ON p.post_id = ps2.post_id AND ps2.subcategory_no = '2'
         WHERE p.post_id = #{postId}
     </select>
@@ -66,13 +66,13 @@
         p.public_type_no,
         p.created_at,
         CASE WHEN f.uid IS NOT NULL THEN TRUE ELSE FALSE END AS isFavorite
-        FROM "post" p
-        JOIN "user" u ON p.uid = u.uid
-        LEFT JOIN "post_subcategory" ps1
+        FROM "posts" p
+        JOIN "users" u ON p.uid = u.uid
+        LEFT JOIN "post_subcategories" ps1
         ON p.post_id = ps1.post_id AND ps1.subcategory_no = '1'
-        LEFT JOIN "post_subcategory" ps2
+        LEFT JOIN "post_subcategories" ps2
         ON p.post_id = ps2.post_id AND ps2.subcategory_no = '2'
-        LEFT JOIN "favorite" f
+        LEFT JOIN "favorites" f
         ON p.post_id = f.post_id AND f.uid = #{uid}
         WHERE p.uid = #{uid}
         ORDER BY p.created_at DESC

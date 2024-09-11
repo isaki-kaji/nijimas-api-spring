@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.UserMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.UserEntity">
-        insert into "user" (uid, username, country_code)
+        insert into "users" (uid, username, country_code)
         values (
         #{uid},
         #{username},
@@ -15,12 +15,12 @@
     </insert>
 
     <select id="findByUid" resultType="com.nijimas.api.core.entity.UserEntity">
-        select * from "user"
+        select * from "users"
         where uid = #{uid}
     </select>
 
     <update id="update" parameterType="com.nijimas.api.core.entity.UserEntity">
-        update "user" set
+        update "users" set
         username = coalesce(#{username}, username),
         country_code = coalesce(#{countryCode}, country_code),
         self_intro = coalesce(#{selfIntro}, self_intro),

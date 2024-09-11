@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.ExpenseSummaryMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
-        INSERT INTO "expense_summary" (uid, year, month, main_category, amount)
+        INSERT INTO "expense_summaries" (uid, year, month, main_category, amount)
         VALUES (
         #{uid},
         #{year},
@@ -17,7 +17,7 @@
     </insert>
 
     <update id="update" parameterType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
-        UPDATE "expense_summary" SET
+        UPDATE "expense_summaries" SET
         amount = #{amount}
         WHERE uid = #{uid}
         AND year = #{year}
@@ -26,7 +26,7 @@
     </update>
 
     <select id="findOne" resultType="com.nijimas.api.core.entity.ExpenseSummaryEntity">
-        SELECT * FROM "expense_summary"
+        SELECT * FROM "expense_summaries"
         WHERE uid = #{uid}
         AND year = #{year}
         AND month = #{month}
@@ -35,7 +35,7 @@
 
     <select id="findByMonth" resultType="com.nijimas.api.core.dto.summary.CommonSummaryDto">
         SELECT main_category, amount
-        FROM "expense_summary"
+        FROM "expense_summaries"
         WHERE uid = #{uid}
         AND year = #{year}
         AND month = #{month}

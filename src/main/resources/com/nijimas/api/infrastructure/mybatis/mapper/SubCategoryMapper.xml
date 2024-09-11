@@ -6,14 +6,14 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.SubCategoryMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.SubCategoryEntity">
-        insert into "sub_category" (category_name)
+        insert into "sub_categories" (category_name)
         values (
         #{categoryName}
         )
     </insert>
 
     <select id="findById" resultType="com.nijimas.api.core.entity.SubCategoryEntity">
-        select * from "sub_category"
+        select * from "sub_categories"
         where category_name = #{categoryName}
     </select>
 </mapper>

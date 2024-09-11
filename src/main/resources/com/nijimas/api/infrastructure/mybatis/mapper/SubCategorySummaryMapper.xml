@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.SubCategorySummaryMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.SubCategorySummaryEntity">
-        INSERT INTO "subcategory_summary" (uid, year, month, sub_category, amount)
+        INSERT INTO "subcategory_summaries" (uid, year, month, sub_category, amount)
         VALUES (
         #{uid},
         #{year},
