@@ -3,6 +3,7 @@ package com.nijimas.api.application.service.post;
 import com.nijimas.api.core.dto.PostDto;
 import com.nijimas.api.core.entity.PostEntity;
 import com.nijimas.api.core.entity.PostSubcategoryEntity;
+import com.nijimas.api.core.entity.SubCategoryEntity;
 import com.nijimas.api.core.repository.PostRepository;
 import com.nijimas.api.core.repository.PostSubcategoryRepository;
 import com.nijimas.api.core.repository.SubCategoryRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,20 +44,31 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> findByUid(String uid) {
-        return postRepository.findByUid(uid);
+    public List<PostDto> findOwn(String uid) {
+        return postRepository.findOwn(uid);
     }
 
     private void handleSubCategory(UUID postId, String subCategoryName, String subCategoryNo) {
-        if (subCategoryName == null) {
+        if (subCategoryName == null || subCategoryName.isEmpty()) {
             return;
         }
 
-        if (subCategoryRepository.findById(subCategoryName).isEmpty()) {
-            subCategoryRepository.save(subCategoryName);
-        }
+        UUID subCategoryId = subCategoryRepository.findById(subCategoryName)
+                .map(SubCategoryEntity::getCategoryId)
+                .orElseGet(() -> createAndSaveNewSubCategory(subCategoryName));
 
-        PostSubcategoryEntity postSubcategory = new PostSubcategoryEntity(postId, subCategoryName, subCategoryNo);
+        savePostSubcategory(postId, subCategoryId, subCategoryNo);
+    }
+
+    private UUID createAndSaveNewSubCategory(String subCategoryName) {
+        SubCategoryEntity newSubCategory = new SubCategoryEntity(subCategoryName);
+        subCategoryRepository.save(newSubCategory);
+        return newSubCategory.getCategoryId();
+    }
+
+    private void savePostSubcategory(UUID postId, UUID subCategoryId, String subCategoryNo) {
+        PostSubcategoryEntity postSubcategory = new PostSubcategoryEntity(postId, subCategoryId, subCategoryNo);
         postSubcategoryRepository.save(postSubcategory);
     }
+
 }

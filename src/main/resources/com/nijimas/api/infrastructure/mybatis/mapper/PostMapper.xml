@@ -6,7 +6,7 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.PostEntity">
-        insert into "posts" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no, created_at)
+        insert into "posts" ( post_id, uid, main_category, post_text, photo_url, expense, location, public_type_no)
         values (
         #{postId},
         #{uid},
@@ -15,8 +15,7 @@
         case when #{photoUrl} = '' then null else #{photoUrl} end,
         #{expense},
         #{location},
-        #{publicTypeNo},
-        #{createdAt}
+        #{publicTypeNo}
         )
     </insert>
 
@@ -50,15 +49,15 @@
         WHERE p.post_id = #{postId}
     </select>
 
-    <select id="findByUid" resultMap="postResultMap">
+    <select id="findOwn" resultMap="postResultMap">
         SELECT
         p.post_id,
         u.uid,
         u.username,
         u.profile_image_url,
         p.main_category,
-        ps1.sub_category AS subCategory1,
-        ps2.sub_category AS subCategory2,
+        sc.sub_category1 AS subCategory1,
+        sc.sub_category2 AS subCategory2,
         p.post_text,
         p.photo_url,
         p.expense,
@@ -66,16 +65,21 @@
         p.public_type_no,
         p.created_at,
         CASE WHEN f.uid IS NOT NULL THEN TRUE ELSE FALSE END AS isFavorite
-        FROM "posts" p
-        JOIN "users" u ON p.uid = u.uid
-        LEFT JOIN "post_subcategories" ps1
-        ON p.post_id = ps1.post_id AND ps1.subcategory_no = '1'
-        LEFT JOIN "post_subcategories" ps2
-        ON p.post_id = ps2.post_id AND ps2.subcategory_no = '2'
+        FROM posts p
+        JOIN users u ON p.uid = u.uid
+        LEFT JOIN (
+        SELECT
+        ps.post_id,
+        MAX(CASE WHEN ps.category_no = '1' THEN s.category_name ELSE NULL END) AS sub_category1,
+        MAX(CASE WHEN ps.category_no = '2' THEN s.category_name ELSE NULL END) AS sub_category2
+        FROM post_subcategories ps
+        JOIN sub_categories s ON ps.category_id = s.category_id
+        GROUP BY ps.post_id
+        ) sc ON p.post_id = sc.post_id
         LEFT JOIN "favorites" f
         ON p.post_id = f.post_id AND f.uid = #{uid}
         WHERE p.uid = #{uid}
-        ORDER BY p.created_at DESC
+        ORDER BY p.post_id DESC
         LIMIT 50
     </select>
 

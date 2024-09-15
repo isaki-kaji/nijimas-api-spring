@@ -1,6 +1,7 @@
 package com.nijimas.api.application.logic;
 
 import com.nijimas.api.core.dto.summary.CalculatedSummaryDto;
+import com.nijimas.api.core.logic.SummaryCalculator;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * 各カテゴリの支出に対する割合を計算し、結果をマップとして返します。
  */
 @Component
-public class SummaryCalculator {
+public class SummaryCalculatorImpl implements SummaryCalculator {
 
     /**
      * 各カテゴリの支出割合を計算します。

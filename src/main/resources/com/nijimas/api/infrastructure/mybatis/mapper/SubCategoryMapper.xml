@@ -6,8 +6,9 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.SubCategoryMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.SubCategoryEntity">
-        insert into "sub_categories" (category_name)
+        insert into "sub_categories" (category_id, category_name)
         values (
+        #{categoryId},
         #{categoryName}
         )
     </insert>

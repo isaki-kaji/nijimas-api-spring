@@ -22,6 +22,7 @@ public class PostEntity {
     private String location;
     private String publicTypeNo;
     private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
 
     public PostEntity(CreatePostParam param) {
         this.postId = CommonUtil.parseUuid(param.getPostId());

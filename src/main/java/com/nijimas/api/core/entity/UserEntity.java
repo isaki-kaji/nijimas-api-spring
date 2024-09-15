@@ -5,6 +5,7 @@ import com.nijimas.api.application.service.user.UpdateUserParam;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 
@@ -16,9 +17,9 @@ public class UserEntity {
     private String username;
     private String selfIntro;
     private String profileImageUrl;
-    private String bannerImageUrl;
     private String countryCode;
     private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
 
     public UserEntity(String uid, String username, String countryCode) {
         this.uid = uid;
@@ -38,5 +39,6 @@ public class UserEntity {
         this.countryCode = param.getCountryCode();
         this.selfIntro = param.getSelfIntro();
         this.profileImageUrl = param.getProfileImageUrl();
+        this.updatedAt = OffsetDateTime.now();
     }
 }

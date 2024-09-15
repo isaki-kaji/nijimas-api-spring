@@ -6,11 +6,11 @@
 <mapper namespace="com.nijimas.api.infrastructure.mybatis.mapper.PostSubcategoryMapper">
 
     <insert id="insert" parameterType="com.nijimas.api.core.entity.PostSubcategoryEntity">
-        insert into "post_subcategories" (post_id, subcategory_no, sub_category)
+        insert into "post_subcategories" (post_id, category_no, category_id)
         values (
         #{postId},
-        #{subcategoryNo},
-        #{subCategory}
+        #{categoryNo},
+        #{categoryId}
         )
     </insert>
 </mapper>

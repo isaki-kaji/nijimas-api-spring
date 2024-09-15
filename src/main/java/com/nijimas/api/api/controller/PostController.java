@@ -31,13 +31,13 @@ public class PostController {
     @GetMapping(path = "/me/posts")
     public ResponseEntity<?> getOwnPosts(
             @RequestAttribute("ownUid") String ownUid) {
-        List<PostDto> posts = postService.findByUid(ownUid);
+        List<PostDto> posts = postService.findOwn(ownUid);
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping(path = "/users/{uid}/posts")
-    public ResponseEntity<?> getPostsByUid(@PathVariable("uid") String uid) {
-        List<PostDto> posts = postService.findByUid(uid);
-        return ResponseEntity.ok(posts);
-    }
+//    @GetMapping(path = "/users/{uid}/posts")
+//    public ResponseEntity<?> getPostsByUid(@PathVariable("uid") String uid) {
+//        List<PostDto> posts = postService.findByUid(uid);
+//        return ResponseEntity.ok(posts);
+//    }
 }

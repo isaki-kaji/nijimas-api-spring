@@ -16,5 +16,5 @@ public interface PostMapper {
 
     PostDto findById(UUID postId);
 
-    List<PostDto> findByUid(String uid);
+    List<PostDto> findOwn(String uid);
 }

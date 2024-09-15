@@ -32,7 +32,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostDto> findByUid(String uid) {
-        return postMapper.findByUid(uid);
+    public List<PostDto> findOwn(String uid) {
+        return postMapper.findOwn(uid);
     }
 }

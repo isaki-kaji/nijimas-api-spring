@@ -1,9 +1,9 @@
 package com.nijimas.api.application.service.summary;
 
-import com.nijimas.api.application.logic.SummaryCalculator;
 import com.nijimas.api.core.dto.summary.CalculatedSummaryDto;
 import com.nijimas.api.core.dto.summary.DailyActivitySummaryDto;
 import com.nijimas.api.core.dto.summary.MonthlySummaryResponseDto;
+import com.nijimas.api.core.logic.SummaryCalculator;
 import com.nijimas.api.core.repository.DailyActivitySummaryRepository;
 import com.nijimas.api.core.repository.ExpenseSummaryRepository;
 import com.nijimas.api.core.repository.SubCategorySummaryRepository;

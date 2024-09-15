@@ -11,5 +11,5 @@ public interface PostService {
 
     PostDto findById(String postId);
 
-    List<PostDto> findByUid(String uid);
+    List<PostDto> findOwn(String uid);
 }

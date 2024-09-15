@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SubCategoryMapper {
 
-    void insert(String categoryName);
+    void insert(SubCategoryEntity subCategoryEntity);
 
     SubCategoryEntity findById(String categoryName);
 }

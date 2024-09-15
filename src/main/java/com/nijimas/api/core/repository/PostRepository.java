@@ -15,5 +15,5 @@ public interface PostRepository {
 
     Optional<PostDto> findById(UUID postId);
 
-    List<PostDto> findByUid(String uid);
+    List<PostDto> findOwn(String uid);
 }

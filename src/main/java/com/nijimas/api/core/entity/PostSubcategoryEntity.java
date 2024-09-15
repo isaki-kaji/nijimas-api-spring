@@ -9,12 +9,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PostSubcategoryEntity {
     private UUID postId;
-    private String subcategoryNo;
-    private String subCategory;
+    private String categoryNo;
+    private UUID categoryId;
 
-    public PostSubcategoryEntity(UUID postId,String subCategory, String subcategoryNo) {
+    public PostSubcategoryEntity(UUID postId,UUID categoryId, String categoryNo) {
         this.postId = postId;
-        this.subcategoryNo = subcategoryNo;
-        this.subCategory = subCategory;
+        this.categoryNo = categoryNo;
+        this.categoryId = categoryId;
     }
 }

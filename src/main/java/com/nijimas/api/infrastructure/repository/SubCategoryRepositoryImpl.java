@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
@@ -14,8 +15,8 @@ public class SubCategoryRepositoryImpl implements SubCategoryRepository {
     private final SubCategoryMapper subCategoryMapper;
 
     @Override
-    public void save(String categoryName) {
-        subCategoryMapper.insert(categoryName);
+    public void save(SubCategoryEntity subCategoryEntity) {
+        subCategoryMapper.insert(subCategoryEntity);
     }
 
     @Override
